@@ -1,0 +1,39 @@
+.main{
+    height: 92vh;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: stretch;
+    /* background-color:  aqua; */
+    padding: 0%;
+    margin: 0%;
+}
+
+.main > h1{
+    text-align: center;
+    padding: 0%;
+    margin: 10px;
+}
+
+.col{
+    justify-content: center;
+    align-items: stretch;
+    /* background-color: blue; */
+    padding: 10px;
+    margin: 10px;
+}
+
+.container{
+    justify-items: auto;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a :hover{
+    text-decoration: none;
+    color: black;
+    transform: scale(1.1);
+}
