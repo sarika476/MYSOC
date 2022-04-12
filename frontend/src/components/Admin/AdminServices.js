@@ -9,7 +9,7 @@ export class AdminServices extends Component {
   render() {
     return (
       <div class="main">
-        <h1> Admin Services Available </h1>
+        <h3> Admin Services Available </h3>
         <div className='container subdiv'>
             <div className='row'>
                 <div className='col'> 

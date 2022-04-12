@@ -8,12 +8,8 @@ export class CardsItem extends Component {
         <a class= "imglink" href={this.props.dest}>
           <Card.Img class="images" variant="top" src={this.props.img} />
           </a>
-        <Card.Body>
+        <Card.Body style={{textAlign:'center'}}>
             <Card.Title>{this.props.name}</Card.Title>
-            <Card.Text>
-            Some quick example text to build on the card title and make up the bulk of
-            the card's content.
-            </Card.Text>
         </Card.Body>
         </Card>
     )
