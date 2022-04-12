@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import './Login.css';
 import Password from 'antd/lib/input/Password';
 const myStyle={
-  backgroundImage: "url('../../public/images/soc.jpg')",
+  backgroundImage: "url('images/soc.jpg')",
   height:'100vh',
   // marginTop:'70px',
   fontSize:'50px',

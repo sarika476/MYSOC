@@ -1,30 +1,28 @@
 import React, { Component } from 'react'
-// import './CardsItem'
+import './UserServices.css'
+
 import Card from 'react-bootstrap/Card'
 import CardsItem from '../CardsItem'
-import './UserServices.css'
+
 
 
 export class UserServices extends Component {
   render() {
     return (
       <div class="main">
-        <h1>User Services Available </h1>
+        <h1> Services Available </h1>
         <div className='container subdiv'>
             <div className='row'>
                 <div className='col'> 
-                   <CardsItem img="../../../img2.png" name="UserInfo" dest="/admin_userinfo"></CardsItem>
-                </div>
-                <div className='col'> 
-                   <CardsItem img="../../../img2.png" name="Maintenance" dest="/Maintenance"></CardsItem>
+                   <CardsItem img="images/img2.png" name="Maintenance" dest="/user_maint"></CardsItem>
                 </div>
 
                 <div className='col'> 
-                    <CardsItem img="../../../img3.jpg" name="Parking" dest="#manthan"></CardsItem>
+                    <CardsItem img="images/img3.jpg" name="Parking" dest="/user_maint"></CardsItem>
                 </div>
 
                 <div className='col'> 
-                    <CardsItem img="../../../img6.jpg" name="Complain" dest="/user_complain"></CardsItem>
+                    <CardsItem img="images/img4.jpg" name="Complaint" dest="#manthan"></CardsItem>
                 </div>
 
                 
@@ -44,6 +42,7 @@ export class UserServices extends Component {
             </div>
            
         </div>
+        {/* <h1> Services Available </h1> */}
       </div>
     )
   }

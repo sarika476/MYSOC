@@ -1,0 +1,17 @@
+.maintenance{
+    justify-content: center;
+    align-items: stretch;
+    /* background-color:  aqua; */
+    padding: 0%;
+    margin: 0%;
+}
+
+.maintenance > h1{
+    text-align: center;
+    padding: 0%;
+    margin: 10px;
+}
+
+.main_table{
+    margin: 20px;
+}

@@ -16,7 +16,7 @@ export class AdminServices extends Component {
                    <CardsItem img="images/img2.png" name="User Information" dest="/admin_userinfo"></CardsItem>
                 </div>
                 <div className='col'> 
-                   <CardsItem img="images/img2.png" name="Maintenance" dest="/Maintenance"></CardsItem>
+                   <CardsItem img="images/img2.png" name="Maintenance" dest="/admin_maint"></CardsItem>
                 </div>
 
                 <div className='col'> 
