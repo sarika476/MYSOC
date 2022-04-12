@@ -13,6 +13,9 @@ import EditUserinfo from './components/Admin/EditUserinfo';
 import AdminUserinfo from './components/Admin/AdminUserinfo';
 import AdminComplains from './components/Admin/AdminComplains';
 import UserComplains from './components/User/UserComplains';
+import UserMaint from './components/User/UserMaint'
+import AdminMaint from './components/Admin/AdminMaint'
+import UserServices from './components/User/UserServices'
 
 
 export default class Paths extends Component {
@@ -35,6 +38,9 @@ export default class Paths extends Component {
                         <Route path="/admin_services">
                             <AdminServices />
                         </Route>
+                        <Route path="/user_services">
+                            <UserServices />
+                        </Route>
                         <Route path="/admin_userinfo">
                             <AdminUserinfo />
                         </Route>
@@ -46,6 +52,12 @@ export default class Paths extends Component {
                         </Route>
                         <Route path="/admin_complain">
                             <AdminComplains />
+                        </Route>
+                        <Route path="/user_maint">
+                            <UserMaint/>
+                        </Route>
+                        <Route path="/admin_maint">
+                            <AdminMaint/>
                         </Route>
                     </div>
                 </Switch>
