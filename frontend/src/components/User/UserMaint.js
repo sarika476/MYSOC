@@ -6,9 +6,29 @@ import './UserMaint.css'
 
 export class UserMaint extends Component {
 
-    state={
-        months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] 
+
+    constructor(props) {
+        super(props)   
+        this.state = {
+            records: []
+        }
+         
     }
+
+    componentDidMount() {
+        fetch('http://localhost:8081/Maitainence/getList')
+            .then(response => response.json())
+            .then(records => {
+                this.setState({
+                    records: records
+                })
+            })
+            .catch(error => console.log(error))
+    }
+
+    // state={
+    //     months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] 
+    // }
     
   render() {
     return (
@@ -30,17 +50,28 @@ export class UserMaint extends Component {
                 </thead>
                 
                 <tbody>
-                    {this.state.months.map( (month,index) => (  
+                {this.state.records.map( (record,index) => (
                     <tr data-index={index}>
-                        <td>{index}</td>
-                        <td>{month}</td>
-                        <td>2500</td>
-                        <td>120</td>
-                        <td>26120</td>
-                        <td>12-5-2005</td>
-                        <td><Button variant="secondary" >Secondary</Button></td>
-                    </tr>
-                     ))}  
+                         <td>{index}</td>
+                         <td>{record.month}</td>
+                         <td>{record.amount}</td>
+                         <td>{record.fine}</td>
+                         <td>12400</td>
+                         <td>{record.paid_on}</td>
+                         <td><Button variant="secondary" >{record.status}</Button></td>
+                     </tr>
+                ))}
+                    {/* // {this.state.months.map( (month,index) => (   */}
+                    {/* // <tr data-index={index}>
+                    //     <td>{index}</td>
+                    //     <td>{month}</td>
+                    //     <td>2500</td>
+                    //     <td>120</td>
+                    //     <td>26120</td>
+                    //     <td>12-5-2005</td>
+                    //     <td><Button variant="secondary" >Secondary</Button></td>
+                    // </tr>
+                    //  ))}   */}
                     
                 </tbody>
             </Table>

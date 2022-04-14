@@ -89,18 +89,18 @@ public class MaintainenceImpl implements MaintainenceService {
     public HashMap<String, Integer> map = new HashMap<>();
 
     public void updateMap() {
-        map.put("Jan", 1);
-        map.put("Feb", 2);
-        map.put("Mar", 3);
-        map.put("Apr", 4);
+        map.put("January", 1);
+        map.put("February", 2);
+        map.put("March", 3);
+        map.put("April", 4);
         map.put("May", 5);
-        map.put("Jun", 6);
-        map.put("Jul", 7);
-        map.put("Aug", 8);
-        map.put("Sep", 9);
-        map.put("Oct", 10);
-        map.put("Nov", 11);
-        map.put("Dec", 12);
+        map.put("June", 6);
+        map.put("July", 7);
+        map.put("August", 8);
+        map.put("September", 9);
+        map.put("October", 10);
+        map.put("November", 11);
+        map.put("December", 12);
     }
     @Autowired
     MongoTemplate mongoTemplate;
