@@ -4,7 +4,7 @@ import './CardsItem.css'
 export class CardsItem extends Component {
   render() {
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem'}}>
         <a class= "imglink" href={this.props.dest}>
           <Card.Img class="images" variant="top" src={this.props.img} />
           </a>

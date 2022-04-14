@@ -71,10 +71,11 @@ export default class AdminComplains extends Component {
     return(
       <Layout>
         <Content>
+          <h3 style={{padding:'20px',textAlign:'center'}}>User Complaints</h3>
           <Table 
             columns={columns}
             dataSource={complains} 
-            ren
+            
         />
         </Content>
       </Layout>

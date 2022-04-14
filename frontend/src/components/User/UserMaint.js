@@ -13,7 +13,7 @@ export class UserMaint extends Component {
   render() {
     return (
         <><div class="maintenance">
-            <h1> Maintenance Info </h1>
+            <h3 style={{padding:'20px'}}> Maintenance Info </h3>
             </div>
             <div class="main_table">
             <Table class="main_table" striped bordered hover variant="light">

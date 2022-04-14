@@ -55,7 +55,7 @@ export default class EditUserinfo extends Component{
 
         return(
             <div>
-                <h1 className="divstyle">Update User Information</h1>
+                <h3 style={{padding:'20px',textAlign:'center'}}>Update User Information</h3>
                 <Demo />
           
             </div>

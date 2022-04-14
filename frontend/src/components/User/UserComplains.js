@@ -98,7 +98,7 @@ export default class UserComplain extends Component{
                                 style={{width: '50%'}}
                                 onFinish={this.submit}
                             >
-                                <Divider>Complain Form</Divider>
+                                <Divider style={{fontSize:'100'}}>Complain Form</Divider>
                                 <Form.Item
                                     name="category"
                                     label="Category"

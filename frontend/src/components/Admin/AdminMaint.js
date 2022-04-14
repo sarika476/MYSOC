@@ -15,7 +15,7 @@ export class AdminMaint extends Component {
   render() {
     return (
         <><div class="maintenance">
-            <h3> Maintenance Info </h3>
+            <h3 style={{padding:'20px'}}> Maintenance Info </h3>
             <div>
                 <div className='row table_main'>
                     <div className='col-sm-8'></div>
