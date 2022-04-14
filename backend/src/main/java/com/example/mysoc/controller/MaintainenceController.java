@@ -47,9 +47,32 @@ public class MaintainenceController {
         return maintainenceService.getRemaining();
     }
 
+    @GetMapping("/getPaid")
+    public List<MaintainenceDB> getPaid()
+    {
+        return maintainenceService.getPaid();
+    }
+
+
     @GetMapping("/geMonthly/{Month}")
     public List<MaintainenceDB> getMonthly(@PathVariable("Month")String Month)
     {
         return maintainenceService.getMonthly(Month);
+    }
+    @GetMapping("/geMonthlyUserWise/{id}/{Month}")
+    public List<MaintainenceDB> getMonthlyUserWise(@PathVariable("id")Long id,@PathVariable("Month")String Month)
+    {
+        return maintainenceService.getMonthlyUserWise(id,Month);
+    }
+    @GetMapping("/getRemainingUserWise/{id}")
+    public List<MaintainenceDB> getReamainingUserWise(@PathVariable("id")Long id)
+    {
+        return maintainenceService.getRemainingUserWise(id);
+    }
+
+    @GetMapping("/getPaidUserWise/{id}")
+    public List<MaintainenceDB> getPaidUserWise(@PathVariable("id")Long id)
+    {
+        return maintainenceService.getPaidUserWise(id);
     }
 }

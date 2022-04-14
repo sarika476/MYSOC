@@ -14,4 +14,9 @@ public interface MaintainenceService {
     public List<MaintainenceDB> getRemaining();
     public long generateSequence(String seqName);
     public List<MaintainenceDB> getMonthly(String Month);
+    public List<MaintainenceDB> getPaid();
+    public List<MaintainenceDB> getMonthlyUserWise(Long id,String Month);
+    public List<MaintainenceDB> getPaidUserWise(Long id);
+    public List<MaintainenceDB> getRemainingUserWise(Long id);
+
 }
