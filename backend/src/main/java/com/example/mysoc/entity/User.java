@@ -23,5 +23,6 @@ public class User {
     @JsonProperty
     private boolean AdminFlag;
     private String password;
+    private Long contact_number;
 
 }
