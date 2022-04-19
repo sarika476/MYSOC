@@ -16,7 +16,8 @@ export class UserMaint extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8081/Maitainence/getList')
+        const status=JSON.parse(localStorage.getItem('user-info'));
+        fetch(`http://localhost:8081/Maitainence/getById/${status['id']}`)
             .then(response => response.json())
             .then(records => {
                 this.setState({
@@ -54,11 +55,11 @@ export class UserMaint extends Component {
                     <tr data-index={index}>
                          <td>{index}</td>
                          <td>{record.month}</td>
-                         <td>{record.amount}</td>
+                         <td>{record.ammount}</td>
                          <td>{record.fine}</td>
-                         <td>12400</td>
+                         <td>{record.ammount+record.fine}</td>
                          <td>{record.paid_on}</td>
-                         <td><Button variant="secondary" >{record.status}</Button></td>
+                         <td><Button variant="secondary" >{record.status ? 'Paid' : 'Pending'}</Button></td>
                      </tr>
                 ))}
                     {/* // {this.state.months.map( (month,index) => (   */}

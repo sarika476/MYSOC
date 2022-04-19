@@ -19,7 +19,7 @@ export class AdminServices extends Component {
                    <CardsItem img="images/img2.png" name="Maintenance" dest="/admin_maint"></CardsItem>
                 </div>
                 <div className='col'> 
-                    <CardsItem img="images/img6.png" name="Complaints" dest="/admin_complain"></CardsItem>
+                    <CardsItem img="images/img4.jpg" name="Complaints" dest="/admin_complain"></CardsItem>
                 </div>
                 <div className='col'> 
                     <CardsItem img="images/img3.jpg" name="Parking" dest="#manthan"></CardsItem>
@@ -38,7 +38,7 @@ export class AdminServices extends Component {
                     <CardsItem img="images/img7.jpg" name="Security" dest="#manthan"></CardsItem>
                 </div>
                 <div className='col'> 
-                    <CardsItem img="images/img5.jpg" name="Event Management" dest="#manthan"></CardsItem>
+                    <CardsItem img="images/img9.jpg" name="Event Management" dest="#manthan"></CardsItem>
                 </div>
             </div>
            

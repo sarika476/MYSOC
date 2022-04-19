@@ -17,9 +17,23 @@ import UserMaint from './components/User/UserMaint'
 import AdminMaint from './components/Admin/AdminMaint'
 import UserServices from './components/User/UserServices'
 import UserHousing from './components/User/UserHousing'
+import AdminMaintDetail from './components/Admin/AdminMaintDetail';
 
 
 export default class Paths extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            // user_id: null,
+        }
+        this.set_user_id = this.set_user_id.bind(this);
+    }
+
+    set_user_id = (id) => {
+        console.log(id);
+        this.setState({user_id: id})
+    }
+
     render(){
         return (
           
@@ -61,7 +75,10 @@ export default class Paths extends Component {
                             <UserMaint/>
                         </Route>
                         <Route path="/admin_maint">
-                            <AdminMaint/>
+                            <AdminMaint {...this}{...this.state}/>
+                        </Route>
+                        <Route path="/admin_maint_detail">
+                            <AdminMaintDetail {...this}{...this.state}/>
                         </Route>
                     </div>
                 </Switch>

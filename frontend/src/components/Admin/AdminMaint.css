@@ -1,21 +1,9 @@
-.maintenance{
-    justify-content: center;
-    align-items: stretch;
-    /* background-color:  aqua; */
-    padding: 0%;
-    margin: 0%;
-}
-
-.maintenance > h3{
-    text-align: center;
-    padding: 0%;
-    margin: 10px;
-}
-
-.main_table{
-    margin: 20px;
-}
-
-.dropdown{
-    size: 5px;
+.demo-loadmore-list {
+    min-height: 350px;
+  }
+.divstyle{
+  align-items: center;
+  margin-top: '100px';
+  margin-left: '150px';
+  text-align: center;
 }
