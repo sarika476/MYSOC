@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -14,6 +15,12 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @GetMapping("/getByid/{id}")
+    public Optional<User> getUserByid(@PathVariable("id")Long id)
+    {
+        return userService.getUserByid(id);
+    }
 
     @PostMapping("/save")
     public User saveUser(@RequestBody User user){
