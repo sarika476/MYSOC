@@ -1,0 +1,3 @@
+FROM mongo
+CMD ["use","db"]
+CMD ["db.createUser({user:"root", pwd:"admin", roles:[{role:"root", db:"db"}]})"]

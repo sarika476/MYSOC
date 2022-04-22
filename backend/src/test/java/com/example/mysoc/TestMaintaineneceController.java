@@ -23,6 +23,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -74,4 +75,22 @@ public class TestMaintaineneceController {
                 .andExpect(jsonPath("$",notNullValue()))
                 .andExpect(jsonPath("$.name",is("monit")));
     }
+    @Test
+    public void PutTesting () throws Exception{
+        User updateduser=new User(5L,"monit",false,"monit",849057581L);
+//        Mockito.when(userRepositoy.getUserByid(user.getId())).thenReturn(Optional.of(user));
+        Mockito.when(userRepositoy.updateUser(user.getId(),user)).thenReturn(updateduser);
+
+        MockHttpServletRequestBuilder mockRequest=MockMvcRequestBuilders.put("/user/update/"+Long.toString(user.getId()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(updateduser));
+//        System.out.println("/user/update/"+Long.toString(user.getId()));
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isOk());
+    }
+
+
+
+
 }
