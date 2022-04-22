@@ -51,6 +51,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public User validateLogin(Long id, String password) {
          boolean found=false;
+         Optional<User> user=userRepositoy.findById(id);
+         if(user.isEmpty())
+         {
+             System.out.println("nahi mila");
+         }
+         else
+         {
+             if(password.equals(user.get().getPassword()))
+             {
+                 System.out.println("Successfull login");
+             }
+             else
+             {
+                 System.out.println("Wrong password");
+                 return null;
+             }
+             if(user.get().isAdminFlag()==true)
+             {
+                 System.out.println("Admin hai");
+             }
+             else
+             {
+                 System.out.println("Admin nahi hai");
+             }
+             return user.get();
+         }
+         /*
         List<User> all=userRepositoy.findAll();
         for(User u:all) {
             if (id == u.getId()) {
@@ -74,7 +101,7 @@ public class UserServiceImpl implements UserService {
         {
             System.out.println("Not found any user with given id");
         }
-
+*/
         return null;
     }
 
