@@ -1,0 +1,6 @@
+mongod --port 27017 --dbpath /data/db
+mongo
+use admin
+db.createUser({user: "root",pwd: "admin",roles: [{role:"userAdminAnyDatabase",db:"admin"}]})
+
+mongod --auth --port 27017 --dbpath /data/db
