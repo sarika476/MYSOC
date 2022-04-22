@@ -16,12 +16,14 @@ import org.springframework.data.web.JsonPath;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -44,7 +46,7 @@ public class TestMaintaineneceController {
     public User ures=new User(6L,"manthan",true,"shah",99246884861L);
 
     @Test
-    public void check() throws Exception{
+    public void checkingGetAPi() throws Exception{
         List<User> arr=new ArrayList<>(Arrays.asList(user,ures));
         Mockito.when(userRepositoy.getUsers()).thenReturn(arr);
         mockMvc.perform(MockMvcRequestBuilders
@@ -58,4 +60,37 @@ public class TestMaintaineneceController {
 
 
     }
+
+    @Test
+    public void checkingPostApi() throws Exception
+    {
+        User user=new User(5L,"monit",false,"monit",8490057581L);
+        Mockito.when(userRepositoy.saveUser(user)).thenReturn(user);
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder=MockMvcRequestBuilders.post("/user/save")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(user));
+        mockMvc.perform(mockHttpServletRequestBuilder)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$",notNullValue()))
+                .andExpect(jsonPath("$.name",is("monit")));
+    }
+    @Test
+    public void PutTesting () throws Exception{
+        User updateduser=new User(5L,"monit",false,"monit",849057581L);
+//        Mockito.when(userRepositoy.getUserByid(user.getId())).thenReturn(Optional.of(user));
+        Mockito.when(userRepositoy.updateUser(user.getId(),user)).thenReturn(updateduser);
+
+        MockHttpServletRequestBuilder mockRequest=MockMvcRequestBuilders.put("/user/update/"+Long.toString(user.getId()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(updateduser));
+//        System.out.println("/user/update/"+Long.toString(user.getId()));
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isOk());
+    }
+
+
+
+
 }
