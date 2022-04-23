@@ -11,15 +11,18 @@ export default class ViewApp extends Component {
   };
 
   accept = (r, e) => {
-    let id=this.props.record.id;
+    // console.log("hello " + r.flatno + " world " + r.contactno);
+    let id= r.flatno;
     let url = `http://localhost:8081/user/update/${id}`;
     let body = {
-      "aid": r.aid,
-      "eid": r.eid,
+      "name ": r.name,
+      "contact_number": r.contactno,
+      "password" : this.props.modal_data.password
+
     }
     console.log(url, JSON.stringify(body))
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
