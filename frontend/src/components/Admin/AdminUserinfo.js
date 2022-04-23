@@ -18,6 +18,7 @@ export default class AdminUserinfo extends Component{
         this.state = {
             api: 'http://localhost:8081/user/list',
             records: [],
+            data: [],
             months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] ,
             targetMonth : 0,
             id: null,
@@ -57,20 +58,22 @@ export default class AdminUserinfo extends Component{
         fetch(this.state.api)
         .then(response => response.json())
         .then(records => {
-            this.setState({
-                records: records
-            })
+          this.setState({
+            records: records
+          })  
+            
         })
         .catch(error => console.log(error))
 
     }
+    
+   
+   
   render()
   {
     function edit(){
       window.location.replace('edit_userinfo');
     }
-    
-    
 
     return(
       
@@ -79,7 +82,7 @@ export default class AdminUserinfo extends Component{
           <h3 style={{padding:'20px',textAlign:'center'}}>User Information</h3>
           <Table style={{paddingLeft:'100px',paddingRight:'100px'}} dataSource={this.state.records} >
 
-            <Column key="id" dataIndex={"id"} title="Flat no"/>
+            <Column key="id" dataIndex={"id"} title="Flat no" />
             <Column key ="Name" dataIndex={"name"} title="Name"/>
             <Column dataIndex={"contact_number"} title="Contact No."/>
             <Column key="action" title="Action" render={(r) => {
