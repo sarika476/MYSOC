@@ -29,14 +29,20 @@ public class UserServiceImpl implements UserService {
         Optional<User> t=userRepositoy.findById(id);
         if(t.isPresent())
         {
+            System.out.println("user found");
             User nu=t.get();
-            if(nu.getName()!=null && !nu.getName().isEmpty())
+            System.out.println(nu.getName()+" "+nu.getPassword()+" "+nu.getContact_number());
+            if(user.getName()!=null && !user.getName().isEmpty())
             {
                 nu.setName(user.getName());
             }
-            if(nu.getPassword()!=null &&  !nu.getPassword().isEmpty())
+            if(user.getPassword()!=null &&  !user.getPassword().isEmpty())
             {
                 nu.setPassword(user.getPassword());
+            }
+            if(user.getContact_number()!=null)
+            {
+                nu.setContact_number(user.getContact_number());
             }
             return userRepositoy.save(nu);
         }

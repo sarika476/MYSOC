@@ -54,12 +54,12 @@ public class MaintainenceController {
     }
 
 
-    @GetMapping("/geMonthly/{Month}")
+    @GetMapping("/getMonthly/{Month}")
     public List<MaintainenceDB> getMonthly(@PathVariable("Month")String Month)
     {
         return maintainenceService.getMonthly(Month);
     }
-    @GetMapping("/geMonthlyUserWise/{id}/{Month}")
+    @GetMapping("/getMonthlyUserWise/{id}/{Month}")
     public List<MaintainenceDB> getMonthlyUserWise(@PathVariable("id")Long id,@PathVariable("Month")String Month)
     {
         return maintainenceService.getMonthlyUserWise(id,Month);
