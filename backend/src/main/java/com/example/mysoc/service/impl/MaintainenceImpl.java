@@ -77,7 +77,8 @@ public class MaintainenceImpl implements MaintainenceService {
         List<Criteria> criteria=new ArrayList<>();
         criteria.add(Criteria.where("status").is(false));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
-        List<MaintainenceDB> ans=mongoOperations.find(query,MaintainenceDB.class);
+        List<MaintainenceDB> ans=new ArrayList<>();
+        ans=mongoOperations.find(query,MaintainenceDB.class);
 
         return ans;
     }
@@ -138,34 +139,68 @@ public class MaintainenceImpl implements MaintainenceService {
         if (map.size() != 12) {
             updateMap();
         }
+        int m = map.get(Month);
+    /*
         Query query=new Query();
         List<Criteria> criteria=new ArrayList<>();
         query.addCriteria(Criteria.where("id").is(id));
-        query.addCriteria(Criteria.where("month").is(Month));
+        query.addCriteria(Criteria.where("month").is(m));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<MaintainenceDB> ans=mongoOperations.find(query,MaintainenceDB.class);
+       *//* for(MaintainenceDB temp:ans)
+        {
+            System.out.println(temp.getId()+" "+temp.getPaid_on());
+        }*/
+        List<MaintainenceDB> all=maintainenceRepo.findAll();
+        List<MaintainenceDB> ans=new ArrayList<>();
+        for(MaintainenceDB temp:all)
+        {
+            if(temp.getId()==id && temp.getMonth()==m)
+            {
+                ans.add(temp);
+            }
+        }
         return ans;
     }
 
     @Override
     public List<MaintainenceDB> getPaidUserWise(Long id) {
-        Query query=new Query();
+       /* Query query=new Query();
         List<Criteria> criteria=new ArrayList<>();
         query.addCriteria(Criteria.where("id").is(id));
         query.addCriteria(Criteria.where("status").is(true));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<MaintainenceDB> ans=mongoOperations.find(query,MaintainenceDB.class);
+        return ans;*/
+        List<MaintainenceDB> all=maintainenceRepo.findAll();
+        List<MaintainenceDB> ans=new ArrayList<>();
+        for(MaintainenceDB temp:all)
+        {
+            if(temp.getId()==id && temp.isStatus()==true)
+            {
+                ans.add(temp);
+            }
+        }
         return ans;
     }
 
     @Override
     public List<MaintainenceDB> getRemainingUserWise(Long id) {
-        Query query=new Query();
+        /*Query query=new Query();
         List<Criteria> criteria=new ArrayList<>();
         query.addCriteria(Criteria.where("id").is(id));
         query.addCriteria(Criteria.where("status").is(false));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
-        List<MaintainenceDB> ans=mongoOperations.find(query,MaintainenceDB.class);
+        List<MaintainenceDB> ans=mongoOperations.find(query,MaintainenceDB.class);*/
+        List<MaintainenceDB> all=maintainenceRepo.findAll();
+        List<MaintainenceDB> ans=new ArrayList<>();
+        for(MaintainenceDB temp:all)
+        {
+            if(temp.getId()==id && temp.isStatus()==false)
+            {
+                ans.add(temp);
+            }
+        }
         return ans;
     }
 
