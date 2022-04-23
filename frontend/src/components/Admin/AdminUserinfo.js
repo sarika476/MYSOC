@@ -27,6 +27,7 @@ export default class AdminUserinfo extends Component{
         this.showmodal = this.showmodal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.editModalForm = this.editModalForm.bind(this);
+        this.fetchApi = this.fetchApi.bind(this);
     }
 
     onApply = (record) => {
@@ -41,6 +42,20 @@ export default class AdminUserinfo extends Component{
       this.setState({ modal_data: r})
     };
 
+    fetchApi(){
+        fetch(this.state.api)
+            .then(response => response.json())
+            .then(records => {
+                this.setState({
+                    records: records
+
+                },()=>{
+                    console.log("from fetch api" + this.state.records)
+                })
+            })
+            .catch(error => console.log(error))
+    }
+
     editModalForm = () => {
       let record = this.state.modal_data;
       this.editFormRef.current.setFieldsValue({
@@ -48,10 +63,13 @@ export default class AdminUserinfo extends Component{
         name: record.name,
         contactno: record.contact_number,
       });
+      // this.fetchApi();
     };
 
     hideModal = () => {
-      this.setState({ show: false });
+      this.setState({ show: false },()=>{
+        this.fetchApi();
+      });
     };
 
     componentDidMount() {

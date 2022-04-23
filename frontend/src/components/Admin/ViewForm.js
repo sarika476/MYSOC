@@ -11,31 +11,52 @@ export default class ViewApp extends Component {
   };
 
   accept = (r, e) => {
-    let id=this.props.record.id;
+    // console.log("hello " + r.flatno + " world " + r.contactno);
+    let id = r.flatno;
+    let name = r.name;
+    let contact_number = r.contactno;
+    let password = this.props.modal_data.password;
     let url = `http://localhost:8081/user/update/${id}`;
-    let body = {
-      "aid": r.aid,
-      "eid": r.eid,
+    let item = {
+      name ,
+      contact_number,
+      password 
+
     }
-    console.log(url, JSON.stringify(body))
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.status === "Success") {
-          console.log("Operation success!");
-          message.success("Operation success!", 1);
-        } else {
-          console.log("Operation failure!");
-          message.error(response.message, 5);
-        }
-      }).catch((err) => console.log(err));
+    console.log(url, JSON.stringify(item))
+    
+        let  result = fetch(url,{
+            method:'PUT',
+            headers:{
+                "Content-Type":"application/json",
+                "Accept":'application/json'
+            },
+            body:JSON.stringify(item)
+        });
+        this.props.hideModal()
+        // localStorage.setItem("user-info",JSON.stringify(result))
+        // console.log("done till here" + result)
+        // window.location.replace("home")
+    
+      
+    // fetch(url, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type":"application/json",
+    //     "Accept":'application/json'
+    //   },
+    //   body: JSON.stringify(body),
+    // })
+    //   .then((res) => res.json())
+    //   .then((response) => {
+    //     if (response.status === "Success") {
+    //       console.log("Operation success!");
+    //       message.success("Operation success!", 1);
+    //     } else {
+    //       console.log("Operation failure!" + response.status);
+    //       message.error(response.message, 5);
+    //     }
+    //   }).catch((err) => console.log(err));
   };
 
   
