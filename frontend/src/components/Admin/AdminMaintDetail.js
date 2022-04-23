@@ -44,7 +44,7 @@ export class AdminMaintDetail extends Component {
         
         if( e === 'Paid' ){
             this.setState({
-                api: 'http://localhost:8081/Maitainence/getList'
+                api: `http://localhost:8081/Maitainence/getPaidUserWise/${this.state.id}`
             }, () => {
                 this.fetchApi();
             })
@@ -66,7 +66,8 @@ export class AdminMaintDetail extends Component {
         this.setState({
             api : `http://localhost:8081/Maitainence/geMonthlyUserWise/${this.state.id}/${e}`
         }, () => {
-            this.fetchApi();
+            console.log(e + "hello");
+            // this.fetchApi();
         })
         
     };
@@ -111,11 +112,11 @@ export class AdminMaintDetail extends Component {
     
     return (
         <><div class="maintenance">
-            <h3 style={{padding:'20px'}}> Maintenance Info {this.state.id}</h3>
+            <h3 style={{padding:'20px'}}> Maintenance Info </h3>
             <div>
                 <div className='row table_main'>
-                    <div className='col-sm-8'></div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-10'></div>
+                    {/* <div className='col-sm-2'>
                         <Dropdown class="dropdown" onSelect={this.handleChange}>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" size='sm'>
                             Month
@@ -127,7 +128,7 @@ export class AdminMaintDetail extends Component {
                             ))}     
                         </Dropdown.Menu>
                         </Dropdown>
-                    </div>
+                    </div> */}
                     <div className='col-sm-2'>
 
                         <Dropdown class="dropdown" onSelect={this.handleChange2}>
