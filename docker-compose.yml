@@ -6,7 +6,6 @@ services:
    - 27017:27017
   volumes_from:
         - data
-  command: --auth
 
  data:
     image: mongo:latest
