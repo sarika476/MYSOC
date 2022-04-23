@@ -20,7 +20,7 @@ export class UserServices extends Component {
                     <CardsItem img="images/img4.jpg" name="Complaint" dest="/user_comp"></CardsItem>
                 </div>
                 <div className='col'> 
-                    <CardsItem img="images/img6.png" name="Housing Services" dest="/user_housing"></CardsItem>
+                    <CardsItem img="images/img6.png" name="Housing Services" dest="#manthan"></CardsItem>
                 </div>  
             </div>
             <div className='row'>

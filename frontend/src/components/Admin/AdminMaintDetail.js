@@ -15,12 +15,12 @@ export class AdminMaintDetail extends Component {
         
         this.state = {
         
-            api: 'http://localhost:8081/Maitainence/getList',
+            api: null,
             records: [],
             months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] ,
             targetMonth : 0,
             // status : false
-            id: null,
+            id: sessionStorage.getItem("user_id"),
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleChange2 = this.handleChange2.bind(this)
@@ -34,21 +34,14 @@ export class AdminMaintDetail extends Component {
                 this.setState({
                     records: records
 
+                },()=>{
+                    console.log("from fetch api" + this.state.records)
                 })
             })
             .catch(error => console.log(error))
     }
     handleChange2 = (e) => {
         
-        // fetch(`http://localhost:8081/Maitainence/geMonthly/${e}`)
-        //     .then(response => response.json())
-        //     .then(records => {
-        //         this.setState({
-        //             records: records
-
-        //         })
-        //     })
-        //     .catch(error => console.log(error))
         if( e === 'Paid' ){
             this.setState({
                 api: 'http://localhost:8081/Maitainence/getList'
@@ -58,7 +51,7 @@ export class AdminMaintDetail extends Component {
         }else{
             
             this.setState({
-                api : 'http://localhost:8081/Maitainence/getRemaining'
+                api : `http://localhost:8081/Maitainence/getRemainingUserWise/${this.state.id}`
             }, () => {
                 this.fetchApi();
             })
@@ -71,7 +64,7 @@ export class AdminMaintDetail extends Component {
     handleChange = (e) => {
         
         this.setState({
-            api : `http://localhost:8081/Maitainence/geMonthly/${e}`
+            api : `http://localhost:8081/Maitainence/geMonthlyUserWise/${this.state.id}/${e}`
         }, () => {
             this.fetchApi();
         })
@@ -85,7 +78,7 @@ export class AdminMaintDetail extends Component {
             headers: { 'Content-Type': 'application/json' },
         };
         // index = index+1;
-        const response = await fetch(`http://localhost:8081/Maitainence/updateStatus/${id}/${index}/2021`, requestOptions);
+        const response = await fetch(`http://localhost:8081/Maitainence/updateStatus/${this.state.id}/${index}/2021`, requestOptions);
         const data = await response.json();
         console.log(data);
         // calling api for full list
@@ -105,22 +98,13 @@ export class AdminMaintDetail extends Component {
     }
 
     componentDidMount() {
-        // fetch(this.state.api)
-        //     .then(response => response.json())
-        //     .then(records => {
-        //         this.setState({
-        //             records: records
-        //         })
-        //     })
-        //     .catch(error => console.log(error))
-        // const { id } = this.props
-        // console.log(this.props.state.user_id)
-        // this.setState({id: this.props.state.user_id},()=>{
-        //     console.log(this.state.id)
-        // })
-        this.setState({id: sessionStorage.getItem("user_id")})
-        console.log(this.state.id)
-        this.fetchApi();
+       
+        this.setState({api : `http://localhost:8081/Maitainence/getById/${this.state.id}`},()=>{
+            console.log("hello" + this.state.api);
+            this.fetchApi();
+        })
+       
+        
         
     }
   render() {
