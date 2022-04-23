@@ -4,17 +4,17 @@ services:
   container_name: "mongo"
   ports:
    - 27017:27017
+  volumes_from:
+        - data
   command: --auth
-   
- mongoClientTemp:
-  image: mongo:latest
-  container_name: mongoClientTemp
-  links:
-   - mongo:mongo
-  command: mongo --host mongo --eval "db.getSiblingDB('admin').createUser({user:'root',pwd:'admin',roles:[{role:'userAdminAnyDatabase',db:'admin'}]});"
-  depends_on:
-   - mongo
-   
+
+ data:
+    image: mongo:latest
+    volumes:
+        - /var/lib/mongo
+        - ./setup:/setup
+    command: "true"
+    container_name: "temp"
 networks:
  default:
   external:
