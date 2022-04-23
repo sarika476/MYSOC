@@ -1,0 +1,21 @@
+services:
+ mongo: 
+  image: mongo:latest
+  container_name: "mongo"
+  ports:
+   - 27017:27017
+  command: --auth
+   
+ mongoClientTemp:
+  image: mongo:latest
+  container_name: mongoClientTemp
+  links:
+   - mongo:mongo
+  command: mongo --host mongo --eval "db.getSiblingDB('admin').createUser({user:'root',pwd:'admin',roles:[{role:'userAdminAnyDatabase',db:'admin'}]});"
+  depends_on:
+   - mongo
+   
+networks:
+ default:
+  external:
+   name: net

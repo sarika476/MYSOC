@@ -1,79 +1,106 @@
 import React, { Component } from 'react' 
+import { Link } from 'react-router-dom';
 import Layout, { Content, Header } from 'antd/lib/layout/layout';
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Tag, Space, Button, Modal } from 'antd';
+import Column from 'antd/lib/table/Column';
 import ReactDOM from 'react-dom';
 import './AdminUserinfo.css';
+import ViewForm from "./ViewForm";
+// import Modal from './Modal/Modal'
 
 export default class AdminUserinfo extends Component{
+
+  editFormRef = React.createRef();
+
+    constructor(props) {
+        super(props)   
+        
+        this.state = {
+            api: 'http://localhost:8081/user/list',
+            records: [],
+            months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] ,
+            targetMonth : 0,
+            id: null,
+            modal_data: {}
+        }
+        this.showmodal = this.showmodal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+        this.editModalForm = this.editModalForm.bind(this);
+    }
+
+    onApply = (record) => {
+        console.log(record);
+        // this.props.set_user_id(record.id);
+        sessionStorage.setItem("user_id", record.id);
+        //window.location.replace('/admin_maint_detail')
+    }
+
+    showmodal = (r, e) => {
+      this.setState({ show: true });
+      this.setState({ modal_data: r})
+    };
+
+    editModalForm = () => {
+      let record = this.state.modal_data;
+      this.editFormRef.current.setFieldsValue({
+        flatno: record.id,
+        name: record.name,
+        contactno: record.contact_number,
+      });
+    };
+
+    hideModal = () => {
+      this.setState({ show: false });
+    };
+
+    componentDidMount() {
+        fetch(this.state.api)
+        .then(response => response.json())
+        .then(records => {
+            this.setState({
+                records: records
+            })
+        })
+        .catch(error => console.log(error))
+
+    }
   render()
   {
     function edit(){
       window.location.replace('edit_userinfo');
     }
     
-    const columns = [
-      {
-        title: 'FlatNo.',
-        dataIndex: 'flatno',
-        key: 'flatno.',
-        // render: text => <a>{text}</a>,
-      },
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        // render: text => <a>{text}</a>,
-      },
-      {
-        title: 'Contact No.',
-        dataIndex: 'contact',
-        key: 'contact',
-        // render: text => <a>{text}</a>,
-      },
-      {
-        title: 'Action',
-        dataIndex: 'action',
-        key: 'action',
-        // render: (text, record) => (
-        //   <Space size="middle">
-        //     <button onClick={edit}>Edit</button>
-        //     <button>Delete</button>
-        //   </Space>
-        // ),
-      },
-    ];
     
-    const data = [
-      {
-        key: '1',
-        flatno:'A101',
-        name: 'John Brown',
-        contact:'1234567890',
-        action: <div><Button type='primary' onClick={edit}>Edit</Button><Button >Delete</Button></div>
-      },
-      {
-        key: '2',
-        flatno:'B102',
-        name: 'Jim Green',
-        contact:'1234567890',
-        action: <div><Button type='primary'>Edit</Button><Button >Delete</Button></div>
-      },
-      {
-        key: '3',
-        flatno:'A102',
-        name: 'Joe Black',
-        contact:'1234567890',
-        action: <div><Button type='primary'>Edit</Button><Button >Delete</Button></div>
-      },
-    ];
 
     return(
       
         <Layout style={{minHeight: '100vh'}}>
         <Content style={{height: '100%'}}>
           <h3 style={{padding:'20px',textAlign:'center'}}>User Information</h3>
-          <Table style={{paddingLeft:'100px',paddingRight:'100px'}} columns={columns} dataSource={data} />
+          <Table style={{paddingLeft:'100px',paddingRight:'100px'}} dataSource={this.state.records} >
+
+            <Column key="id" dataIndex={"id"} title="Flat no"/>
+            <Column key ="Name" dataIndex={"name"} title="Name"/>
+            <Column dataIndex={"contact_number"} title="Contact No."/>
+            <Column key="action" title="Action" render={(r) => {
+              return(
+                 <div>
+                    <Button type='primary' onClick={() => this.showmodal(r)}>Edit</Button>
+                 </div>
+                  
+                  
+                
+              )
+            }}></Column>
+
+          </Table>
         </Content>
+        <Modal
+            visible={this.state.show}
+            footer={null}
+          >
+            <ViewForm {...this} {...this.state}></ViewForm>
+          </Modal>
         </Layout>
     )   
   }
