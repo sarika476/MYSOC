@@ -84,7 +84,6 @@ export default class AdminUserinfo extends Component{
         .catch(error => console.log(error))
 
     }
-    
    
    
   render()

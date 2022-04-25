@@ -22,7 +22,7 @@ export default class ViewApp extends Component {
       contact_number,
       password 
 
-    }
+    } 
     console.log(url, JSON.stringify(item))
     
         let  result = fetch(url,{
@@ -68,7 +68,7 @@ export default class ViewApp extends Component {
         onFinish={this.accept}
       >
         <Form.Item name="flatno" label="Flat No.">
-          <Input />
+          <Input disabled/>
         </Form.Item>
 
         <Form.Item name="name" label="Name">
