@@ -57,8 +57,8 @@ pipeline {
         
         stage('Deploy our image') {
             steps{
-                sh 'docker push $registry:$registry1'
-                sh 'docker push $registry:$registry2'
+                sh 'docker push $registry'
+                sh 'docker push $registry'
             }
         }
         
