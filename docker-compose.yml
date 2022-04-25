@@ -33,4 +33,4 @@ services:
 networks:
  default:
   external:
-   name: net
+   name: bridge
