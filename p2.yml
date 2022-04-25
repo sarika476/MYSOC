@@ -22,7 +22,7 @@
         dest: ./
         owner: ssv
         group: ssv  
-        mode: 077
+        mode: 0777
     - name : Run Docker compose
       ansible.builtin.shell:
     	cmd: ./scriptfile.sh
