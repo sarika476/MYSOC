@@ -57,8 +57,8 @@ pipeline {
         
         stage('Deploy our image') {
             steps{
-                sh 'docker push $registry1'
-                sh 'docker push $registry2'
+		    withDockerRegistry([ credentialsId: registryCredential, url: "" ]) {sh 'docker push $registry1'}
+		    withDockerRegistry([ credentialsId: registryCredential, url: "" ]) {sh 'docker push $registry2'}
             }
         }
         
