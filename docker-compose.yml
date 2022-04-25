@@ -1,19 +1,15 @@
 services:
  react:
+  image: sarika476/frontend
   container_name: "react"
-  build:
-   context: ./frontend/
-   dockerfile: Dockerfile
   ports:
    - 3000:3000
   depends_on:
     - spring
     - mongo
  spring:
+  image: sarika476/backend
   container_name: "spring"
-  build: 
-   context: .
-   dockerfile: Dockerfile
   ports:
    - 8081:8081
   depends_on: 
