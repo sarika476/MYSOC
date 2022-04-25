@@ -47,9 +47,9 @@ pipeline {
             steps{
             
             	dir('frontend'){
-            		sh ' docker build -t $registry1'
+            		sh ' docker build -t $registry1 .'
             	}
-            	sh ' docker build -t $registry2'                                
+            	sh ' docker build -t $registry2 .'                                
             }
         }
         
