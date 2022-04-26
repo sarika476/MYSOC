@@ -12,12 +12,18 @@
       copy:
         src: ./setup
         dest: ./
+        owner: ssv
+        group: ssv
+        mode: 0777
         
     - name: Copying script file
       become: true 
       copy:
         src: ./scriptfile.sh
         dest: ./
+        owner: ssv
+        group: ssv
+        mode: 0777
         
     - name: Run Docker compose
       ansible.builtin.shell:
