@@ -12,8 +12,8 @@
       copy:
         src: ./setup
         dest: ./
-        owner: ssv
-        group: ssv
+        owner: sarika
+        group: sarika
         mode: 0777
         
     - name: Copying script file
@@ -21,8 +21,8 @@
       copy:
         src: ./scriptfile.sh
         dest: ./
-        owner: ssv
-        group: ssv
+        owner: sarika
+        group: sarika
         mode: 0777
         
     - name: Run Docker compose
