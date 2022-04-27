@@ -1,4 +1,4 @@
-import react, { Component } from 'react';
+import React, { Component } from 'react' 
 import {
     Form,
     Input,
@@ -10,6 +10,7 @@ import {
     Upload
   } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -75,10 +76,15 @@ const category = [
     },
   };
 
-export default class UserComplain extends Component{
+  
+export default class UserComplains extends Component{
+  
     cancel = () => {
         window.location.replace("/user_services")
     }
+    mycomp = () => {
+      window.location.replace("/my_complains")
+  }
 
     submit = (value, e) => {
         console.log(value)
@@ -146,6 +152,9 @@ export default class UserComplain extends Component{
                                     </Button>
                                     <Button htmlType="cancel" onClick={this.cancel}>
                                     Cancel
+                                    </Button>
+                                    <Button onClick={this.mycomp}>
+                                    View My Complains
                                     </Button>
                                 </Form.Item>
                             </Form>

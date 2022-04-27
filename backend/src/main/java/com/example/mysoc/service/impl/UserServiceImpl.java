@@ -4,6 +4,7 @@ import com.example.mysoc.entity.User;
 import com.example.mysoc.repository.UserRepositoy;
 import com.example.mysoc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,12 +12,16 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
     @Autowired
     private UserRepositoy userRepositoy;
 
     @Override
     public User saveUser(User user) {
-        return userRepositoy.save(user);
+        String pass=bCryptPasswordEncoder.encode(user.getPassword());
+//        System.out.println("Encoded password is "+pass);
+        user.setPassword(pass);
+        return  userRepositoy.save(user);
     }
 
     @Override
@@ -55,64 +60,44 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User validateLogin(Long id, String password) {
+    public int validateLogin(Long id, String password) {
          boolean found=false;
          Optional<User> user=userRepositoy.findById(id);
          if(user.isEmpty())
          {
              System.out.println("nahi mila");
+             return 0;
          }
          else
          {
-             if(password.equals(user.get().getPassword()))
+             if(bCryptPasswordEncoder.matches(password,user.get().getPassword()))
              {
                  System.out.println("Successfull login");
              }
              else
              {
                  System.out.println("Wrong password");
-                 return null;
+                 return 2;
              }
-             if(user.get().isAdminFlag()==true)
-             {
-                 System.out.println("Admin hai");
-             }
-             else
-             {
-                 System.out.println("Admin nahi hai");
-             }
-             return user.get();
+            return 1;
          }
-         /*
-        List<User> all=userRepositoy.findAll();
-        for(User u:all) {
-            if (id == u.getId()) {
-                if (password.equals(u.getPassword())) {
-                    found=true;
-                    System.out.println("found");
-                    if (u.isAdminFlag() == true) {
-                        System.out.println("Admin hai bhai");
-                    } else {
-                        System.out.println("Admin nahin hai bhai");
-                    }
 
-                    return u;
-                } else {
-                    System.out.println("Wrong Password Try again");
-                    return null;
-                }
-            }
-        }
-        if(!found)
-        {
-            System.out.println("Not found any user with given id");
-        }
-*/
-        return null;
     }
 
     @Override
     public Optional<User>  getUserByid(Long id) {
         return userRepositoy.findById(id);
+    }
+
+    @Override
+    public boolean checkforadmin(Long id) {
+        Optional<User> user=userRepositoy.findById(id);
+        if(user.isEmpty())
+            return false;
+        else if(user.get().isAdminFlag())
+        {
+            return true;
+        }
+        return false;
     }
 }

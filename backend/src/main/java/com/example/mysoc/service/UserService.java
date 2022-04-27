@@ -12,6 +12,7 @@ public interface UserService {
     public List<User> getUsers();
     public User updateUser(Long id,User user);
     public void deleteUser(Long id);
-    public  User validateLogin(Long id, String password);
+    public  int validateLogin(Long id, String password);
     public Optional<User> getUserByid(Long id);
+    public boolean checkforadmin(Long id);
 }

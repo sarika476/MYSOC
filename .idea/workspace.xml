@@ -46,7 +46,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
@@ -156,6 +156,7 @@
       <workItem from="1649885658382" duration="1336000" />
       <workItem from="1650285967766" duration="1323000" />
       <workItem from="1650949001605" duration="867000" />
+      <workItem from="1650956850821" duration="66000" />
     </task>
     <servers />
   </component>

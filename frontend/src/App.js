@@ -17,6 +17,7 @@ import UserMaint from './components/User/UserMaint'
 import AdminMaint from './components/Admin/AdminMaint'
 import UserServices from './components/User/UserServices'
 import UserHousing from './components/User/UserHousing'
+import MyComplains from './components/User/MyComplains'
 import AdminMaintDetail from './components/Admin/AdminMaintDetail';
 
 
@@ -70,6 +71,9 @@ export default class Paths extends Component {
                         </Route>
                         <Route path="/admin_complain">
                             <AdminComplains />
+                        </Route>
+                        <Route path="/my_complains">
+                            <MyComplains />
                         </Route>
                         <Route path="/user_maint">
                             <UserMaint/>

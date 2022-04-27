@@ -1,7 +1,6 @@
 import { Col, Row, Table, Button, Input, Tag ,Modal} from 'antd';
 import Layout, { Content, Header } from 'antd/lib/layout/layout';
 import React, { Component } from 'react';
-import ViewDetail from "./ViewDetail";
 import Column from 'antd/lib/table/Column';
 
 const { Search } = Input;
@@ -53,32 +52,6 @@ let comp = [
 ];
 
 export default class AdminComplains extends Component {
-
-  editFormRef = React.createRef();
-  constructor(props){
-    super(props);
-    this.showmodal = this.showmodal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
-    this.editModalForm = this.editModalForm.bind(this);
-  }
-
-  hideModal = () => {
-    this.setState({ show: false });
-  };
-  showmodal = (r) => {
-    this.setState({ show: true });
-    //this.setState({ modal_data: r})
-  };
-  editModalForm = () => {
-    // let record = this.state.modal_data;
-    this.editFormRef.current.setFieldsValue({
-      category:1,
-      date:"Electrical",
-      description:"hello",
-      images:"hey images"
-    });
-    // this.fetchApi();
-  };
   state = {
     columns: [],
     complains: [],
@@ -88,39 +61,28 @@ export default class AdminComplains extends Component {
   componentDidMount = () => {
     this.setState({complains: comp, columns: cols})
   }
-
-  // details = (values, e) => {
-  //   console.log(e.key())
-  // }
-
   render(){   
     const { columns, complains } = this.state;
 
     return(
       <Layout style={{minHeight: '100vh'}}>
         <Content style={{height: '100%'}}>
-           <h3 style={{padding:'20px',textAlign:'center'}}>User Complaints</h3>
+           <h3 style={{padding:'20px',textAlign:'center'}}>My Complaints</h3>
          <Table style={{paddingLeft:'100px',paddingRight:'100px'}} dataSource={complains} >
 
-                <Column key="id" dataIndex={"columns"} title="Flat no" />
-                <Column key ="Name" dataIndex={"columns"} title="Name"/>
-                <Column dataIndex={"columns"} title="Contact No."/>
+                <Column key="id" dataIndex={"columns"} title="Sr. no" />
+                <Column key ="Name" dataIndex={"columns"} title="Category"/>
+                <Column dataIndex={"columns"} title="Date"/>
                 <Column key="action" title="Action" render={(r) => {
-                  return(
-                    <div>
-                        <Button type='primary' onClick={() => this.showmodal(r)}>Details</Button>
-                    </div>
-                  )
-                }}></Column>
-
+              return(
+                 <div>
+                    <Tag color='green' key="pending">{"pendind".toUpperCase()}</Tag>
+                 </div> 
+                
+              )
+            }}></Column>
          </Table>
-                </Content>
-          <Modal
-                visible={this.state.show}
-                footer={null}
-                >
-                <ViewDetail {...this} {...this.state}></ViewDetail>
-          </Modal>
+        </Content>
       </Layout>
       
     
