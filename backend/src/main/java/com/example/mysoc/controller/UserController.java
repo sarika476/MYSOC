@@ -37,7 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/list")
-        public List<User> getUsers(){
+        public List<User> getUsers()
+    {
             return userService.getUsers();
         }
     @PutMapping("/update/{user_id}")

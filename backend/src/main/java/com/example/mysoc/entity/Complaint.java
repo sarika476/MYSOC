@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.bson.types.Binary;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Complaint {
     @Transient
     public static final String SEQUENCE_NAME="user_sequence";
@@ -26,5 +28,10 @@ public class Complaint {
     private String Description;
     @Nullable
     private Binary image;
+    @NonNull
+    private String cat;
+
+    @NonNull
+    private String date;
 
 }
