@@ -20,14 +20,15 @@ export class Navigation extends Component {
     
     var id = sessionStorage.getItem("user_id")
     var result = await fetch(`http://localhost:8081/user/isAdmin/${id}`).then((response) => {
-      console.log(" hello " + response.json());
+      console.log(" hello " + response.status);
+      if( response.status === 200   ){
+          window.location.replace('/admin_services');
+      }else{
+          window.location.replace('/user_services');
+      }
     })
     // console.log(" hello " + result.json());
-    if( result ){
-      this.setState({path: '/admin_services'});
-    }else{
-        this.setState({path: '/user_services'});
-    }
+    
       
   }
 
