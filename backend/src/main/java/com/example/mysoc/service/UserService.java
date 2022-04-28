@@ -16,5 +16,5 @@ public interface UserService {
     public void deleteUser(Long id);
     public  int validateLogin(Long id, String password);
     public Optional<User> getUserByid(Long id);
-    public boolean checkforadmin(Long id);
+    public int  checkforadmin(Long id);
 }

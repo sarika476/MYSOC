@@ -90,14 +90,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkforadmin(Long id) {
+    public int checkforadmin(Long id) {
         Optional<User> user=userRepositoy.findById(id);
         if(user.isEmpty())
-            return false;
+            return 0;
         else if(user.get().isAdminFlag())
         {
-            return true;
+            return 1;
         }
-        return false;
+        return 0;
     }
 }
