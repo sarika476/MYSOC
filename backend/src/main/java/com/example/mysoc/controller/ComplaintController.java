@@ -2,10 +2,8 @@ package com.example.mysoc.controller;
 
 import com.example.mysoc.entity.Complaint;
 import com.example.mysoc.entity.ComplaintSequencer;
-import com.example.mysoc.entity.MaintainenceDB;
 import com.example.mysoc.entity.Response;
 import com.example.mysoc.repository.ComplaintRepo;
-import com.example.mysoc.service.ComplaintService;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +13,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,5 +94,15 @@ public class ComplaintController {
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<Complaint> ans=mongoOperations.find(query,Complaint.class);
         return ans;
+    }
+    @PutMapping("/updateComplaintStatus/{skey}/{fno}")
+    public boolean updateStatus(@PathVariable("skey")long sk, @PathVariable("fno")Long fno)
+    {
+        Query query=new Query();
+        List<Criteria> criteria=new ArrayList<>();
+        criteria.add(Criteria.where("skey").is(sk));
+        criteria.add(Criteria.where("flat_no").is(fno));
+        Complaint val=mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);
+        return true;
     }
 }
