@@ -12,7 +12,8 @@ import java.io.IOException;
 
 @Service
 //@Configurable
+//@Component
 public interface ComplaintService {
     public long generateSequence(String seqName);
-    public int regeisterComplaint(Complaint obj) throws IOException;
+    public int regeisterComplaint(Complaint obj,MultipartFile img) throws IOException;
 }
