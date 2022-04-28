@@ -65,7 +65,8 @@ public class ComplaintController {
         obj.setSkey(this.generateSequence(Complaint.SEQUENCE_NAME));
         obj.setFlat_no(fno);
         obj.setDescription(des);
-        obj.setImage(new Binary(BsonBinarySubType.BINARY, img.getBytes()));
+        if(!img.isEmpty()){
+        obj.setImage(new Binary(BsonBinarySubType.BINARY, img.getBytes()));}
         obj.setCat(category);
         obj.setDate(dt);
         complaintRepo.save(obj);
@@ -86,6 +87,16 @@ public class ComplaintController {
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<Complaint> ans=mongoOperations.find(query,Complaint.class);
 
+        return ans;
+    }
+    @GetMapping("/getComplaintByUser/{uid}")
+    public List<Complaint> getComplaintsbyUser(@PathVariable("uid")Long id)
+    {
+        Query query=new Query();
+        List<Criteria> criteria=new ArrayList<>();
+        criteria.add(Criteria.where("flat_no").is(id));
+        query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
+        List<Complaint> ans=mongoOperations.find(query,Complaint.class);
         return ans;
     }
 }
