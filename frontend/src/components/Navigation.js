@@ -9,14 +9,26 @@ export class Navigation extends Component {
     this.state = {path : '/admin_services'}
     this.sample=this.sample.bind(this);
   }
-  sample(){
-    const status=JSON.parse(localStorage.getItem('user-info'));
-    console.log(status['AdminFlag']);
-    if( status['AdminFlag']){
+  async sample(){
+    // const status=JSON.parse(localStorage.getItem('user-info'));
+    // console.log(status['AdminFlag']);
+    // if( status['AdminFlag']){
+    //   this.setState({path: '/admin_services'});
+    // }else{
+    //   this.setState({path: '/user_services'});
+    // }
+    
+    var id = sessionStorage.getItem("user_id")
+    var result = await fetch(`http://localhost:8081/user/isAdmin/${id}`).then((response) => {
+      console.log(" hello " + response.json());
+    })
+    // console.log(" hello " + result.json());
+    if( result ){
       this.setState({path: '/admin_services'});
     }else{
-      this.setState({path: '/user_services'});
+        this.setState({path: '/user_services'});
     }
+      
   }
 
    
@@ -31,7 +43,7 @@ export class Navigation extends Component {
             <Nav className="me-auto">
 
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href={this.state.path} onClick={this.sample}>Services</Nav.Link>
+            <Nav.Link onClick={this.sample}>Services</Nav.Link>
             </Nav>
             <Nav>
             <Nav.Link href="/login">Logout</Nav.Link>

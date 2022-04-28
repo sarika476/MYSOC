@@ -25,16 +25,27 @@ function Login() {
 
     async function validateLogin(){
         let  item ={id,password};
-        let  result = await fetch("http://localhost:8081/user/login",{
+        await fetch("http://localhost:8081/user/login",{
             method:'POST',
             headers:{
                 "Content-Type":"application/json",
                 "Accept":'application/json'
             },
             body:JSON.stringify(item)
+        }).then((response) => {
+            if(response.status === 200){
+                console.log("SUCCESS");
+                sessionStorage.setItem("user_id", id);
+            }
+            else if(response.status === 404 ){
+                console.log("USER NOT FOUND");
+            }
+            else{
+                console.log("INVALID CREDENTIALS!")
+            }
         });
-        result = await result.json();
-        localStorage.setItem("user-info",JSON.stringify(result))
+        // result = await result.json();
+        // localStorage.setItem("user-info",JSON.stringify(result))
         console.log("done till here")
         window.location.replace("home")
     }

@@ -133,7 +133,7 @@ export default class UserComplain extends Component{
                                     ]}
                                 >
                                     <Upload {...props}>
-                                        <Button icon={<UploadOutlined />}>Upload</Button>
+                                        <Button icon={<UploadOutlined /> }>Upload</Button>
                                     </Upload>
                                 </Form.Item>
 
