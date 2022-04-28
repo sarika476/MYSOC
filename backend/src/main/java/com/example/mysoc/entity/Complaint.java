@@ -1,5 +1,6 @@
 package com.example.mysoc.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
@@ -33,5 +34,8 @@ public class Complaint {
 
     @NonNull
     private String date;
+
+    @JsonProperty
+    private boolean Status=false;
 
 }

@@ -11,6 +11,7 @@ import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
@@ -70,11 +71,21 @@ public class ComplaintController {
         complaintRepo.save(obj);
         return ResponseEntity.ok().body(response);
     }
-    @GetMapping("/GetAllComplains")
+    @GetMapping("/GetAllComplaints")
     public List<Complaint> getALL()
     {
         return complaintRepo.findAll(Sort.by("date").descending());
     }
 
+    @GetMapping("/GetPendingComplaints")
+    public List<Complaint> getPending()
+    {
+        Query query=new Query();
+        List<Criteria> criteria=new ArrayList<>();
+        criteria.add(Criteria.where("Status").is(false));
+        query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
+        List<Complaint> ans=mongoOperations.find(query,Complaint.class);
 
+        return ans;
+    }
 }
