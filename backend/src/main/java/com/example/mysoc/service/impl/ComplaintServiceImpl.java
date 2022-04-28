@@ -26,6 +26,8 @@ public class ComplaintServiceImpl implements ComplaintService {
     MongoOperations mongoOperations;
 
 
+
+
     @Override
     public long generateSequence(String seqName) {
         ComplaintSequencer counter = mongoOperations.findAndModify(Query.query(where("_id").is(seqName)), new
@@ -34,10 +36,9 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public int regeisterComplaint(Complaint obj) throws IOException {
-//        obj.setImage(new Binary(BsonBinarySubType.BINARY,img.getBytes()));
-        complaintRepo.insert(obj);
-//         complaintRepo.save(obj);
+    public int regeisterComplaint(Complaint obj,MultipartFile img) throws IOException {
+        obj.setImage(new Binary(BsonBinarySubType.BINARY,img.getBytes()));
+        complaintRepo.save(obj);
         return 1;
     }
 

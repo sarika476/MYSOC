@@ -185,10 +185,16 @@ export default class UserComplains extends Component{
                                     },
                                     ]}
                                 >
+<<<<<<< HEAD
                                     <Input type="file" className="form-control" name="file" onChange={this.uploadImage}/>
                                     {/* <Upload>
                                         <Button icon={<UploadOutlined />} onChange={this.uploadImage}>Upload</Button>
                                     </Upload> */}
+=======
+                                    <Upload {...props}>
+                                        <Button icon={<UploadOutlined /> }>Upload</Button>
+                                    </Upload>
+>>>>>>> 1cfd4660f26c23e9050523000f9d5ae3df76432c
                                 </Form.Item>
 
 

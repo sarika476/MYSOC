@@ -37,7 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/list")
-        public List<User> getUsers(){
+        public List<User> getUsers()
+    {
             return userService.getUsers();
         }
     @PutMapping("/update/{user_id}")
@@ -81,9 +82,26 @@ public class UserController {
 
     }
     @GetMapping("/isAdmin/{id}")
-    public boolean checkIfAdmin(@PathVariable("id")Long id)
+    public ResponseEntity<Response> checkIfAdmin(@PathVariable("id")Long id)
     {
-        return userService.checkforadmin(id);
+        int x=userService.checkforadmin(id);
+        Response response=new Response();
+        if(x==1)
+        {
+            System.out.println("ya it's an admin");
+            response.setMessage("Yes admin");
+            response.setStatus("Admin");
+            return ResponseEntity.ok().header("Content Type","application/json")
+                    .body(response);
+        }
+        else {
+            System.out.println("User");
+            response.setStatus("User");
+            response.setMessage("its a user");
+            return ResponseEntity.badRequest().header("Content Type","application/json")
+                    .body(response);
+
+        }
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     class InvalidRequestException extends RuntimeException {
@@ -91,5 +109,7 @@ public class UserController {
             super(s);
         }
     }
+
+
 
 }
