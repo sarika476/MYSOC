@@ -9,7 +9,10 @@ import {
     Layout,
     Upload
   } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import FormItem from 'antd/lib/form/FormItem';
+import Dropdown from 'react-bootstrap/Dropdown'
+
+
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -48,50 +51,79 @@ const category = [
         label: 'def',
     },
   ];
-
   const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
-    beforeUpload(file) {
-      return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const img = document.createElement('img');
-          img.src = reader.result;
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            ctx.fillStyle = 'red';
-            ctx.textBaseline = 'middle';
-            ctx.font = '33px Arial';
-            ctx.fillText('Ant Design', 20, 20);
-            canvas.toBlob(resolve);
-          };
-        };
-      });
-    },
-  };
+    action: ''
+  }
+
+  
 
   
 export default class UserComplains extends Component{
+
+  
+  constructor(props) {
+      super(props)   
+      
+      this.state = {
+          selectedFile : [] ,
+          des:[],
+          record: [],
+          category: ["Electrical","Maintainence","Other"],
+          cat:[],
+      }
+      this.uploadImage = this.uploadImage.bind(this)
+      this.pushdata = this.pushdata.bind(this)
+      this.cancel = this.cancel.bind(this)
+      this.mycomp =this.mycomp.bind(this)
+      this.desc =this.desc.bind(this)
+      this.handleChange = this.handleChange.bind(this)
+
+  }
+  handleChange = (e) => {
+        
+    this.setState({
+       cat:e
+    })
+    
+};
+    
+    desc=(e)=>{
+        this.setState({
+            des: e
+        },()=>{
+            console.log(this.state.des);
+        });
+    }
   
     cancel = () => {
         window.location.replace("/user_services")
     }
     mycomp = () => {
-      window.location.replace("/my_complains")
-  }
-
-    submit = (value, e) => {
-        console.log(value)
-        // window.location.replace("/services")
+        window.location.replace("/my_complains")
     }
+    pushdata = (record) =>{
+        const formData = new FormData();
+        formData.append('fno', 4 );
+        formData.append('cat', this.state.cat);
+        formData.append('des', this.state.des);
+        formData.append('img', this.state.selectedFile);
 
-    render() {
+        fetch('http://localhost:8081/Complaint/Register', {
+            method: 'post',
+            body: formData
+        }).then(res => {
+            console.log(res)
+        });
+    };
+
+  uploadImage=(e)=>{
+    e.preventDefault();
+    this.setState({
+        selectedFile: e.target.files[0]
+    });
+    
+  }
+      render() {
         return(
             <Layout style={{ minHeight: '100vh' }}>
                 <Content>
@@ -105,7 +137,7 @@ export default class UserComplains extends Component{
                                 onFinish={this.submit}
                             >
                                 <Divider style={{fontSize:'100'}}>Complain Form</Divider>
-                                <Form.Item
+                                {/* <Form.Item
                                     name="category"
                                     label="Category"
                                     rules={[
@@ -113,10 +145,25 @@ export default class UserComplains extends Component{
                                     ]}
                                 >
                                     <Cascader options={category} />
-                                </Form.Item>
+                                </Form.Item> */}
+                                <FormItem>
+                                <div className='col-sm-2'>
+                                    <Dropdown class="dropdown" onSelect={this.handleChange}>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic" size='sm'>
+                                        Category
+                                    </Dropdown.Toggle>
+                                
+                                    <Dropdown.Menu > 
+                                        {this.state.category.map( (category,index) => (
+                                            <Dropdown.Item eventKey={category}>{category}</Dropdown.Item>
+                                        ))}     
+                                    </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                                </FormItem>
 
                                 <Form.Item
-                                    name="description"
+                                    name="des"
                                     label="Description"
                                     rules={[
                                     {
@@ -125,7 +172,7 @@ export default class UserComplains extends Component{
                                     },
                                     ]}
                                 >
-                                    <Input style={{height: '100px'}}/>
+                                    <Input style={{height: '100px'}} onChange={this.desc}/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -138,16 +185,17 @@ export default class UserComplains extends Component{
                                     },
                                     ]}
                                 >
-                                    <Upload {...props}>
-                                        <Button icon={<UploadOutlined />}>Upload</Button>
-                                    </Upload>
+                                    <Input type="file" className="form-control" name="file" onChange={this.uploadImage}/>
+                                    {/* <Upload>
+                                        <Button icon={<UploadOutlined />} onChange={this.uploadImage}>Upload</Button>
+                                    </Upload> */}
                                 </Form.Item>
 
 
                                 <Form.Item {...tailFormItemLayout}
                                      name= "submit"
                                 >
-                                    <Button type="primary" htmlType="submit">
+                                    <Button type="primary" onClick={() => this.pushdata()}>
                                     Submit
                                     </Button>
                                     <Button htmlType="cancel" onClick={this.cancel}>
