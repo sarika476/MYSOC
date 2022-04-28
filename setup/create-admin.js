@@ -1,3 +1,4 @@
+db.dropAllUsers()
 db.createUser(
 {
     user: "root",
