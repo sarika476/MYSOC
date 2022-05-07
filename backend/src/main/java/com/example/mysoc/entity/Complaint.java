@@ -26,7 +26,7 @@ public class Complaint {
     long skey;
     private Long flat_no;
     @NonNull
-    private String Description;
+    private String description;
 
     @NonNull
     private String cat;
@@ -34,7 +34,6 @@ public class Complaint {
     @NonNull
     private String date;
 
-    @JsonProperty
-    private boolean Status;
+    private boolean status;
 
 }
