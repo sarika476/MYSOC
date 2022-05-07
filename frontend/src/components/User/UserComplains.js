@@ -1,4 +1,4 @@
-import React, { Component } from 'react' 
+import React, { Component } from 'react'
 import {
     Form,
     Input,
@@ -8,9 +8,10 @@ import {
     Divider,
     Layout,
     Upload
-  } from 'antd';
+} from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
-import Dropdown from 'react-bootstrap/Dropdown'
+import { Menu, Dropdown, Space } from 'antd';
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 
 
 
@@ -19,197 +20,175 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const formItemLayout = {
     labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
+        xs: { span: 24 },
+        sm: { span: 8 },
     },
     wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
+        xs: { span: 24 },
+        sm: { span: 16 },
     },
 };
 
 const tailFormItemLayout = {
     wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0,
-      },
-      sm: {
-        span: 16,
-        offset: 8,
-      },
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 8,
+        },
     },
-  };
+};
 
 const category = [
     {
-      value: 'abc',
-      label: 'abc',
+        value: "electric",
+        label: "Electic",
     },
     {
-        value: 'def',
-        label: 'def',
+        value: "maintainance",
+        label: "Maintainance",
     },
-  ];
-  const props = {
-    action: ''
-  }
+    {
+        value: "other",
+        label: "Other",
+    },
+];
 
-  
 
-  
-export default class UserComplains extends Component{
 
-  
-  constructor(props) {
-      super(props)   
-      
-      this.state = {
-          selectedFile : [] ,
-          des:[],
-          record: [],
-          category: ["Electrical","Maintainence","Other"],
-          cat:[],
-      }
-      this.uploadImage = this.uploadImage.bind(this)
-      this.pushdata = this.pushdata.bind(this)
-      this.cancel = this.cancel.bind(this)
-      this.mycomp =this.mycomp.bind(this)
-      this.desc =this.desc.bind(this)
-      this.handleChange = this.handleChange.bind(this)
 
-  }
-  handleChange = (e) => {
-        
-    this.setState({
-       cat:e
-    })
-    
-};
-    
-    desc=(e)=>{
+export default class UserComplains extends Component {
+
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            selectedFile: [],
+            des: [],
+            record: [],
+            category: ["Electrical", "Maintainence", "Other"],
+            cat: [],
+        }
+        //this.uploadImage = this.uploadImage.bind(this)
+        this.pushdata = this.pushdata.bind(this)
+        this.cancel = this.cancel.bind(this)
+        this.mycomp = this.mycomp.bind(this)
+        this.desc = this.desc.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+
+    }
+    handleChange = (e) => {
+
+        this.setState({
+            cat: e
+        })
+
+    };
+
+    desc = (e) => {
         this.setState({
             des: e
-        },()=>{
+        }, () => {
             console.log(this.state.des);
         });
     }
-  
+
     cancel = () => {
         window.location.replace("/user_services")
     }
     mycomp = () => {
         window.location.replace("/my_complains")
     }
-    pushdata = (record) =>{
-        const formData = new FormData();
-        formData.append('fno', 4 );
-        formData.append('cat', this.state.cat);
-        formData.append('des', this.state.des);
-        formData.append('img', this.state.selectedFile);
+    pushdata = (record, e) => {
+        console.log(record);
 
-        fetch('http://localhost:8081/Complaint/Register', {
-            method: 'post',
-            body: formData
-        }).then(res => {
-            console.log(res)
-        });
+        let url = `http://localhost:8081/Complaint/Register`;
+
+        let body = {
+            'fno': parseFloat(sessionStorage.getItem("user_id")),
+            'cat': record.category[0],
+            'des': record.description
+        }
+        console.log(JSON.stringify(body))
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(body)
+        }).then(res => res.json())
+            .then(response => {
+                console.log(response)
+                // window.location.replace('/user_services');
+            })
     };
 
-  uploadImage=(e)=>{
-    e.preventDefault();
-    this.setState({
-        selectedFile: e.target.files[0]
-    });
-    
-  }
-      render() {
-        return(
+    render() {
+        return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Content>
                     <div>
                         <Row justify='center' align='middle'>
                             <Form
-                                {...formItemLayout}
                                 name="register"
-                                scrollToFirstError
-                                style={{width: '50%'}}
-                                onFinish={this.submit}
+                                className="login-form"
+                                style={{ width: '40%' }}
+                                onFinish={this.pushdata}
                             >
-                                <Divider style={{fontSize:'100'}}>Complain Form</Divider>
-                                {/* <Form.Item
+                                <Divider style={{ fontSize: '100' }}>Complain Form</Divider>
+
+                                <FormItem
                                     name="category"
                                     label="Category"
                                     rules={[
-                                    { type: 'array', required: true, message: 'Please select Category!' },
+                                        {
+                                            type: "array",
+                                            required: true,
+                                            message: "Please select your Category!",
+                                        },
                                     ]}
                                 >
                                     <Cascader options={category} />
-                                </Form.Item> */}
-                                <FormItem>
-                                <div className='col-sm-2'>
-                                    <Dropdown class="dropdown" onSelect={this.handleChange}>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic" size='sm'>
-                                        Category
-                                    </Dropdown.Toggle>
-                                
-                                    <Dropdown.Menu > 
-                                        {this.state.category.map( (category,index) => (
-                                            <Dropdown.Item eventKey={category}>{category}</Dropdown.Item>
-                                        ))}     
-                                    </Dropdown.Menu>
-                                    </Dropdown>
-                                </div>
                                 </FormItem>
 
                                 <Form.Item
-                                    name="des"
+                                    name="description"
                                     label="Description"
                                     rules={[
-                                    {
-                                        type: 'string',
-                                        message: 'The input is not valid E-mail!',
-                                    },
+                                        {
+                                            type: 'string',
+                                            required: true,
+                                            message: 'Provide your description',
+                                        },
                                     ]}
                                 >
-                                    <Input style={{height: '100px'}} onChange={this.desc}/>
+                                    <Input style={{ height: '100px' }}/>
                                 </Form.Item>
-
-                                <Form.Item
-                                    name="image"
-                                    label="Image"
-                                    rules={[
-                                    {
-                                        required: false,
-                                        message: 'Please upload Image',
-                                    },
-                                    ]}
-                                >
-                                    <Input type="file" className="form-control" name="file" onChange={this.uploadImage}/>
-                                    {/* <Upload>
-                                        <Button icon={<UploadOutlined />} onChange={this.uploadImage}>Upload</Button>
-                                    </Upload> */}
-                                </Form.Item>
-
 
                                 <Form.Item {...tailFormItemLayout}
-                                     name= "submit"
+                                    name="submit"
                                 >
-                                    <Button type="primary" onClick={() => this.pushdata()}>
-                                    Submit
+                                    <Button type="primary" htmlType='submit'>
+                                        Submit
                                     </Button>
                                     <Button htmlType="cancel" onClick={this.cancel}>
-                                    Cancel
+                                        Cancel
                                     </Button>
                                     <Button onClick={this.mycomp}>
-                                    View My Complains
+                                        View My Complains
                                     </Button>
                                 </Form.Item>
                             </Form>
                         </Row>
                     </div>
                 </Content>
-                
+
             </Layout>
         )
     }
