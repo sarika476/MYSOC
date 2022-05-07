@@ -8,6 +8,7 @@ export class Navigation extends Component {
     super();
     this.state = {path : '/admin_services'}
     this.sample=this.sample.bind(this);
+    
   }
   async sample(){
     // const status=JSON.parse(localStorage.getItem('user-info'));
@@ -30,15 +31,13 @@ export class Navigation extends Component {
     // console.log(" hello " + result.json());
     
       
-  }
-
-   
+  }   
   render() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
         {/* <Container> */}
         
-        <Navbar.Brand href="/Services">MYSOC </Navbar.Brand>
+        <Navbar.Brand href="/home">MYSOC </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

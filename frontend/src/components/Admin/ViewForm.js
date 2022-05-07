@@ -34,29 +34,6 @@ export default class ViewApp extends Component {
             body:JSON.stringify(item)
         });
         this.props.hideModal()
-        // localStorage.setItem("user-info",JSON.stringify(result))
-        // console.log("done till here" + result)
-        // window.location.replace("home")
-    
-      
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type":"application/json",
-    //     "Accept":'application/json'
-    //   },
-    //   body: JSON.stringify(body),
-    // })
-    //   .then((res) => res.json())
-    //   .then((response) => {
-    //     if (response.status === "Success") {
-    //       console.log("Operation success!");
-    //       message.success("Operation success!", 1);
-    //     } else {
-    //       console.log("Operation failure!" + response.status);
-    //       message.error(response.message, 5);
-    //     }
-    //   }).catch((err) => console.log(err));
   };
 
   

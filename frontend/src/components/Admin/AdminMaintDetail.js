@@ -20,7 +20,7 @@ export class AdminMaintDetail extends Component {
             months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] ,
             targetMonth : 0,
             // status : false
-            id: sessionStorage.getItem("user_id"),
+            id: sessionStorage.getItem("user_id_1"),
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleChange2 = this.handleChange2.bind(this)
@@ -155,7 +155,6 @@ export class AdminMaintDetail extends Component {
                         <th>Maintenance</th>
                         <th>Fine</th>
                         <th>Total amount</th>
-                        <th>Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -179,7 +178,7 @@ export class AdminMaintDetail extends Component {
                             <td>{record.ammount}</td>
                             <td>{record.fine}</td>
                             <td>{record.ammount+record.fine}</td>
-                            <td>{record.paid_on}</td>
+                            {/* <td>{record.paid_on}</td> */}
                             <td><Button variant="secondary"  onClick={()=>this.statusChange(record.id,record.month)}>{record.status ? 'Paid' : 'Pending'}</Button></td>
                         </tr>
                     ))}

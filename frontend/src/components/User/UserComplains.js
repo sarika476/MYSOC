@@ -45,7 +45,7 @@ const tailFormItemLayout = {
 const category = [
     {
         value: "electric",
-        label: "Electic",
+        label: "Electric",
     },
     {
         value: "maintainance",
@@ -109,9 +109,9 @@ export default class UserComplains extends Component {
         let url = `http://localhost:8081/Complaint/Register`;
 
         let body = {
-            'fno': parseFloat(sessionStorage.getItem("user_id")),
+            'flat_no': parseFloat(sessionStorage.getItem("user_id")),
             'cat': record.category[0],
-            'des': record.description
+            'description': record.description
         }
         console.log(JSON.stringify(body))
 
@@ -177,7 +177,7 @@ export default class UserComplains extends Component {
                                     <Button type="primary" htmlType='submit'>
                                         Submit
                                     </Button>
-                                    <Button htmlType="cancel" onClick={this.cancel}>
+                                    <Button onClick={this.cancel}>
                                         Cancel
                                     </Button>
                                     <Button onClick={this.mycomp}>

@@ -48,7 +48,6 @@ export class UserMaint extends Component {
                         <th>Maintenance</th>
                         <th>Fine</th>
                         <th>Total amount</th>
-                        <th>Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -61,7 +60,6 @@ export class UserMaint extends Component {
                          <td>{record.ammount}</td>
                          <td>{record.fine}</td>
                          <td>{record.ammount+record.fine}</td>
-                         <td>{record.paid_on}</td>
                          <td><Tag variant="primary" >{record.status ? 'Paid' : 'Pending'}</Tag></td>
                      </tr>
                 ))}
