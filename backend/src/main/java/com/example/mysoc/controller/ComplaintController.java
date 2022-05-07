@@ -50,21 +50,12 @@ public class ComplaintController {
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
     @PostMapping("/Register")
-    public ResponseEntity<Response> registerComplaint(@RequestParam("fno")Long fno,@RequestParam("des")String des,
-                                                      @RequestParam("img")MultipartFile img,
-                                                      @RequestParam("category")String category
-    ,@RequestParam("date")String dt) throws IOException {
+    public ResponseEntity<Response> registerComplaint(@RequestBody Complaint obj) throws IOException {
         System.out.println("Here reached");
         response.setStatus("Success");
         response.setMessage("Complaint regirsterd successfully");
-        Complaint obj = new Complaint();
         obj.setSkey(this.generateSequence(Complaint.SEQUENCE_NAME));
-        obj.setFlat_no(fno);
-        obj.setDescription(des);
-        if(!img.isEmpty()){
-        obj.setImage(new Binary(BsonBinarySubType.BINARY, img.getBytes()));}
-        obj.setCat(category);
-        obj.setDate(dt);
+        obj.setStatus(false);
         complaintRepo.save(obj);
         return ResponseEntity.ok().body(response);
     }

@@ -27,8 +27,7 @@ public class Complaint {
     private Long flat_no;
     @NonNull
     private String Description;
-    @Nullable
-    private Binary image;
+
     @NonNull
     private String cat;
 
