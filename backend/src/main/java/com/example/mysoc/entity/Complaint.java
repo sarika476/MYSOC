@@ -35,6 +35,6 @@ public class Complaint {
     private String date;
 
     @JsonProperty
-    private boolean Status=false;
+    private boolean Status;
 
 }

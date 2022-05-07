@@ -89,11 +89,20 @@ public class ComplaintController {
     @PutMapping("/updateComplaintStatus/{skey}/{fno}")
     public boolean updateStatus(@PathVariable("skey")long sk, @PathVariable("fno")Long fno)
     {
-        Query query=new Query();
+        /*Query query=new Query();
         List<Criteria> criteria=new ArrayList<>();
         criteria.add(Criteria.where("skey").is(sk));
         criteria.add(Criteria.where("flat_no").is(fno));
-        mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);
+        mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);*/
+        List<Complaint> all =complaintRepo.findAll();
+        for(Complaint x:all)
+        {
+            if(x.getSkey()==sk && x.getFlat_no()==fno)
+            {
+                x.setStatus(true);
+            }
+        }
+
         return true;
     }
 }
