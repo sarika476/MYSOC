@@ -23,7 +23,7 @@ export default class AdminMaint extends Component{
     onApply = (record) => {
         console.log(record);
         // this.props.set_user_id(record.id);
-        sessionStorage.setItem("user_id", record.id);
+        // sessionStorage.setItem("user_id", record.id);
         window.location.replace('/admin_maint_detail')
     }
 

@@ -59,8 +59,32 @@ export default class AdminComplains extends Component {
   };
 
   componentDidMount = () => {
-    this.setState({complains: comp, columns: cols})
+    let url = `http://localhost:8081/Complaint/getComplaintByUser/`+sessionStorage.getItem("user_id");
+    console.log(url);
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":'application/json'
+      },
+    }).then(res => res.json())
+      .then(response => {
+        console.log(response)
+        this.setState({complains: response})
+      })
   }
+
+  checkForTag = (value) => {
+    let renderTab = null;
+    if(value){
+      renderTab = <Tag color="success">Resolved</Tag>;
+    } else {
+      renderTab = <Tag color="processing">Pending</Tag>;
+    }
+    return renderTab;
+  };
+
   render(){   
     const { columns, complains } = this.state;
 
@@ -70,17 +94,16 @@ export default class AdminComplains extends Component {
            <h3 style={{padding:'20px',textAlign:'center'}}>My Complaints</h3>
          <Table style={{paddingLeft:'100px',paddingRight:'100px'}} dataSource={complains} >
 
-                <Column key="id" dataIndex={"columns"} title="Sr. no" />
-                <Column key ="Name" dataIndex={"columns"} title="Category"/>
-                <Column dataIndex={"columns"} title="Date"/>
-                <Column key="action" title="Action" render={(r) => {
-              return(
-                 <div>
-                    <Tag color='green' key="pending">{"pendind".toUpperCase()}</Tag>
-                 </div> 
-                
-              )
-            }}></Column>
+                <Column key="id" dataIndex={"flat_no"} title="Flat no" />
+                <Column key ="category" dataIndex={"cat"} title="Category"/>
+                <Column dataIndex={"description"} title="Description"/>
+                <Column dataIndex={"status"} title="Status" render={(r) => {
+                  return (
+                    <div>
+                    {this.checkForTag(r)}
+                    </div>
+                  )
+                }} />
          </Table>
         </Content>
       </Layout>

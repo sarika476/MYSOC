@@ -31,7 +31,6 @@ export default class AdminComplains extends Component {
         console.log(response)
         this.setState({complains: response})
       })
-    // this.setState({complains: comp, columns: cols})
   }
 
   checkForTag = (value) => {
@@ -48,6 +47,7 @@ export default class AdminComplains extends Component {
     let skey= r.skey;
     let fno=r.flat_no;
     let url = `http://localhost:8081/Complaint/updateComplaintStatus/`+skey+'/'+fno;
+    console.log(url)
 
     fetch(url, {
       method: "PUT",
@@ -58,7 +58,6 @@ export default class AdminComplains extends Component {
     }).then(res => res.json())
       .then(response => {
         console.log(response)
-        // this.componentDidMount();
       })
   }
 
