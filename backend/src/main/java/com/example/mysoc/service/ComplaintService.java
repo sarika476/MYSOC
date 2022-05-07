@@ -1,3 +1,4 @@
+/*
 package com.example.mysoc.service;
 
 import com.example.mysoc.entity.Complaint;
@@ -17,3 +18,4 @@ public interface ComplaintService {
     public long generateSequence(String seqName);
     public int regeisterComplaint(Complaint obj,MultipartFile img) throws IOException;
 }
+*/

@@ -100,6 +100,7 @@ public class ComplaintController {
             if(x.getSkey()==sk && x.getFlat_no()==fno)
             {
                 x.setStatus(true);
+                complaintRepo.save(x);
             }
         }
 
