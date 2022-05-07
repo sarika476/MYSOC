@@ -68,7 +68,7 @@ public class ComplaintController {
     {
         Query query=new Query();
         List<Criteria> criteria=new ArrayList<>();
-        criteria.add(Criteria.where("Status").is(false));
+        criteria.add(Criteria.where("status").is(false));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<Complaint> ans=mongoOperations.find(query,Complaint.class);
 
@@ -98,7 +98,7 @@ public class ComplaintController {
             System.out.println("Yeh kya kar raha hai bhai tu");
             return false;
         }*/
-        Complaint c= mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);
+        Complaint c= mongoOperations.findAndModify(query,new Update().set("status",true),Complaint.class);
 
         return true;
     }
