@@ -1,3 +1,4 @@
+/*
 package com.example.mysoc.service.impl;
 
 import com.example.mysoc.entity.Complaint;
@@ -42,3 +43,4 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
 }
+*/
