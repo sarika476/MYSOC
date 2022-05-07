@@ -85,11 +85,11 @@ public class ComplaintController {
         return ans;
     }
     @PutMapping("/updateComplaintStatus/{skey}/{fno}")
-    public boolean updateStatus(@PathVariable("skey")long sk, @PathVariable("fno")Long fno)
+    public boolean updateStatus(@PathVariable("skey")long sk, @PathVariable("fno")Long fn)
     {
         Query query=new Query();
         List<Criteria> complaints=new ArrayList<>();
-        complaints.add(Criteria.where( "flat_no").is(fno));
+        complaints.add(Criteria.where("flat_no").is(fn));
         complaints.add(Criteria.where("skey").is(sk));
         query.addCriteria(new Criteria().andOperator(complaints.toArray((new Criteria[complaints.size()]))));
      /*   MaintainenceDB check= (MaintainenceDB) mongoOperations.find(query,MaintainenceDB.class);
