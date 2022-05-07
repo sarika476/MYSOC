@@ -2,10 +2,9 @@ package com.example.mysoc.controller;
 
 import com.example.mysoc.entity.Complaint;
 import com.example.mysoc.entity.ComplaintSequencer;
+import com.example.mysoc.entity.MaintainenceDB;
 import com.example.mysoc.entity.Response;
 import com.example.mysoc.repository.ComplaintRepo;
-import org.bson.BsonBinarySubType;
-import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -14,7 +13,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,20 +87,18 @@ public class ComplaintController {
     @PutMapping("/updateComplaintStatus/{skey}/{fno}")
     public boolean updateStatus(@PathVariable("skey")long sk, @PathVariable("fno")Long fno)
     {
-        /*Query query=new Query();
-        List<Criteria> criteria=new ArrayList<>();
-        criteria.add(Criteria.where("skey").is(sk));
-        criteria.add(Criteria.where("flat_no").is(fno));
-        mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);*/
-        List<Complaint> all =complaintRepo.findAll();
-        for(Complaint x:all)
+        Query query=new Query();
+        List<Criteria> complaints=new ArrayList<>();
+        complaints.add(Criteria.where( "flat_no").is(fno));
+        complaints.add(Criteria.where("skey").is(sk));
+        query.addCriteria(new Criteria().andOperator(complaints.toArray((new Criteria[complaints.size()]))));
+     /*   MaintainenceDB check= (MaintainenceDB) mongoOperations.find(query,MaintainenceDB.class);
+        if(check.isStatus()==true)
         {
-            if(x.getSkey()==sk && x.getFlat_no()==fno)
-            {
-                x.setStatus(true);
-                complaintRepo.save(x);
-            }
-        }
+            System.out.println("Yeh kya kar raha hai bhai tu");
+            return false;
+        }*/
+        Complaint c= mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);
 
         return true;
     }
