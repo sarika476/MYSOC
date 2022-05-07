@@ -93,7 +93,7 @@ public class ComplaintController {
         List<Criteria> criteria=new ArrayList<>();
         criteria.add(Criteria.where("skey").is(sk));
         criteria.add(Criteria.where("flat_no").is(fno));
-        Complaint val=mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);
+        mongoOperations.findAndModify(query,new Update().set("Status",true),Complaint.class);
         return true;
     }
 }
