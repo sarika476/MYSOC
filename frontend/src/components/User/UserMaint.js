@@ -17,7 +17,7 @@ export class UserMaint extends Component {
 
     componentDidMount() {
         const status=JSON.parse(localStorage.getItem('user-info'));
-        fetch(`http://localhost:8081/Maitainence/getById/${status['id']}`)
+        fetch(sessionStorage.getItem("ip_add")+`/Maitainence/getById/${status['id']}`)
             .then(response => response.json())
             .then(records => {
                 this.setState({

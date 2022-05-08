@@ -34,6 +34,11 @@ export default class Paths extends Component {
         this.setState({user_id: id})
     }
 
+    componentDidMount() {
+        sessionStorage.setItem("ip_add", "http://34.229.88.193:8080");
+    }
+
+
     render(){
         return (
           
