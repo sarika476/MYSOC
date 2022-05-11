@@ -24,6 +24,7 @@ function Login() {
     const [password,setPassword]=useState("");
 
     async function validateLogin(){
+        console.log("hello")
         let  item ={id,password};
         const ip = sessionStorage.getItem("ip_add");
         await fetch(`${ip}/user/login`,{

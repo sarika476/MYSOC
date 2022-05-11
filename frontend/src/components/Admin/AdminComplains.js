@@ -55,7 +55,7 @@ export default class AdminComplains extends Component {
   checkForTag = (value) => {
     let renderTab = null;
     if(value){
-      renderTab = <Tag color="success">Resolved</Tag>;
+      renderTab = <Tag color="success" >Resolved</Tag>;
     } else {
       renderTab = <Tag color="processing">Pending</Tag>;
     }
@@ -105,7 +105,7 @@ export default class AdminComplains extends Component {
                 <Column key="action" title="Action" render={(r) => {
                   return(
                     <div>
-                        <Button type='primary' onClick={() => this.resolve(r)}>Resolve</Button>
+                        <Button type='primary' onClick={() => this.resolve(r)  } >Resolve</Button>
                     </div>
                   )
                 }}></Column>
