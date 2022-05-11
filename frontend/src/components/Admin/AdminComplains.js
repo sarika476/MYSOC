@@ -9,13 +9,32 @@ const { Search } = Input;
 export default class AdminComplains extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      columns: [],
+      complains: [],
+      selected: {},
+      
+    }
+    this.fetchApi = this.fetchApi.bind(this)
   } 
 
-  state = {
-    columns: [],
-    complains: [],
-    selected: {},
-  };
+  
+
+  fetchApi(){
+    let url = `http://localhost:8081/Complaint/GetAllComplaints`;
+    console.log(" hello me")
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":'application/json'
+      },
+    }).then(res => res.json())
+      .then(response => {
+        console.log(response)
+        this.setState({complains: response})
+      })
+  }
 
   componentDidMount = () => {
     let url = `http://localhost:8081/Complaint/GetAllComplaints`;
@@ -59,6 +78,7 @@ export default class AdminComplains extends Component {
       .then(response => {
         console.log(response)
       })
+    this.fetchApi();
   }
 
 

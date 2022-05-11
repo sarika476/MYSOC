@@ -25,7 +25,8 @@ function Login() {
 
     async function validateLogin(){
         let  item ={id,password};
-        await fetch("http://localhost:8081/user/login",{
+        const ip = sessionStorage.getItem("ip_add");
+        await fetch(`${ip}/user/login`,{
             method:'POST',
             headers:{
                 "Content-Type":"application/json",

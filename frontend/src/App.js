@@ -42,6 +42,11 @@ export default class Paths extends Component {
             <Redirect to="/login" />
         );
     };
+    
+    componentDidMount() {
+        sessionStorage.setItem("ip_add", "http://34.229.88.193:8080");
+    }
+
 
     render(){
         return (

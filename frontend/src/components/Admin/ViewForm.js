@@ -16,7 +16,7 @@ export default class ViewApp extends Component {
     let name = r.name;
     let contact_number = r.contactno;
     let password = this.props.modal_data.password;
-    let url = `http://localhost:8081/user/update/${id}`;
+    let url = sessionStorage.getItem("ip_add")+`/user/update/${id}`;
     let item = {
       name ,
       contact_number,

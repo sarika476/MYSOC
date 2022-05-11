@@ -20,7 +20,8 @@ export class Navigation extends Component {
     // }
     
     var id = sessionStorage.getItem("user_id")
-    var result = await fetch(`http://localhost:8081/user/isAdmin/${id}`).then((response) => {
+    var ip=sessionStorage.getItem("ip_add")
+    var result = await fetch(`${ip}/user/isAdmin/${id}`).then((response) => {
       console.log(" hello " + response.status);
       if( response.status === 200   ){
           window.location.replace('/admin_services');

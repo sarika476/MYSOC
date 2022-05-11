@@ -97,6 +97,12 @@ export default class UserComplains extends Component {
         });
     }
 
+<<<<<<< HEAD
+=======
+export default class UserComplain extends Component{
+    
+   
+>>>>>>> c319000e16e3039f02b5247cf7567d771f37db95
     cancel = () => {
         window.location.replace("/user_services")
     }

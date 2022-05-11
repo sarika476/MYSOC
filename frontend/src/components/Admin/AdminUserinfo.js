@@ -16,7 +16,7 @@ export default class AdminUserinfo extends Component{
         super(props)   
         
         this.state = {
-            api: 'http://localhost:8081/user/list',
+            api: sessionStorage.getItem("ip_add")+'/user/list',
             records: [],
             data: [],
             months : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ] ,

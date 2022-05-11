@@ -44,14 +44,14 @@ export class AdminMaintDetail extends Component {
         
         if( e === 'Paid' ){
             this.setState({
-                api: `http://localhost:8081/Maitainence/getPaidUserWise/${this.state.id}`
+                api: sessionStorage.getItem("ip_add")+`/Maitainence/getPaidUserWise/${this.state.id}`
             }, () => {
                 this.fetchApi();
             })
         }else{
             
             this.setState({
-                api : `http://localhost:8081/Maitainence/getRemainingUserWise/${this.state.id}`
+                api : sessionStorage.getItem("ip_add")+`/Maitainence/getRemainingUserWise/${this.state.id}`
             }, () => {
                 this.fetchApi();
             })
@@ -64,7 +64,7 @@ export class AdminMaintDetail extends Component {
     handleChange = (e) => {
         
         this.setState({
-            api : `http://localhost:8081/Maitainence/geMonthlyUserWise/${this.state.id}/${e}`
+            api : sessionStorage.getItem("ip_add")+`/Maitainence/geMonthlyUserWise/${this.state.id}/${e}`
         }, () => {
             console.log(e + "hello");
             // this.fetchApi();
@@ -79,7 +79,7 @@ export class AdminMaintDetail extends Component {
             headers: { 'Content-Type': 'application/json' },
         };
         // index = index+1;
-        const response = await fetch(`http://localhost:8081/Maitainence/updateStatus/${this.state.id}/${index}/2021`, requestOptions);
+        const response = await fetch(sessionStorage.getItem("ip_add")+`/Maitainence/updateStatus/${this.state.id}/${index}/2021`, requestOptions);
         const data = await response.json();
         console.log(data);
         // calling api for full list
@@ -100,7 +100,7 @@ export class AdminMaintDetail extends Component {
 
     componentDidMount() {
        
-        this.setState({api : `http://localhost:8081/Maitainence/getById/${this.state.id}`},()=>{
+        this.setState({api : sessionStorage.getItem("ip_add")+`/Maitainence/getById/${this.state.id}`},()=>{
             console.log("hello" + this.state.api);
             this.fetchApi();
         })
