@@ -1,4 +1,4 @@
-import react, { Component } from 'react';
+import React, { Component } from 'react'
 import {
     Form,
     Input,
@@ -8,153 +8,186 @@ import {
     Divider,
     Layout,
     Upload
-  } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+} from 'antd';
+import FormItem from 'antd/lib/form/FormItem';
+import { Menu, Dropdown, Space } from 'antd';
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+
+
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const formItemLayout = {
     labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
+        xs: { span: 24 },
+        sm: { span: 8 },
     },
     wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
+        xs: { span: 24 },
+        sm: { span: 16 },
     },
 };
 
 const tailFormItemLayout = {
     wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0,
-      },
-      sm: {
-        span: 16,
-        offset: 8,
-      },
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 8,
+        },
     },
-  };
+};
 
 const category = [
     {
-      value: 'abc',
-      label: 'abc',
+        value: "electric",
+        label: "Electric",
     },
     {
-        value: 'def',
-        label: 'def',
+        value: "maintainance",
+        label: "Maintainance",
     },
-  ];
-
-  const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    listType: 'picture',
-    beforeUpload(file) {
-      return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const img = document.createElement('img');
-          img.src = reader.result;
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            ctx.fillStyle = 'red';
-            ctx.textBaseline = 'middle';
-            ctx.font = '33px Arial';
-            ctx.fillText('Ant Design', 20, 20);
-            canvas.toBlob(resolve);
-          };
-        };
-      });
+    {
+        value: "other",
+        label: "Other",
     },
-  };
+];
 
-export default class UserComplain extends Component{
-    
-   
+
+
+
+export default class UserComplains extends Component {
+
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            selectedFile: [],
+            des: [],
+            record: [],
+            category: ["Electrical", "Maintainence", "Other"],
+            cat: [],
+        }
+        //this.uploadImage = this.uploadImage.bind(this)
+        this.pushdata = this.pushdata.bind(this)
+        this.cancel = this.cancel.bind(this)
+        this.mycomp = this.mycomp.bind(this)
+        this.desc = this.desc.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+
+    }
+    handleChange = (e) => {
+
+        this.setState({
+            cat: e
+        })
+
+    };
+
+    desc = (e) => {
+        this.setState({
+            des: e
+        }, () => {
+            console.log(this.state.des);
+        });
+    }
     cancel = () => {
         window.location.replace("/user_services")
     }
-
-    submit = (value, e) => {
-        console.log(value)
-        // window.location.replace("/services")
+    mycomp = () => {
+        window.location.replace("/my_complains")
     }
+    pushdata = (record, e) => {
+        console.log(record);
+
+        let url = `http://localhost:8081/Complaint/Register`;
+
+        let body = {
+            'flat_no': parseFloat(sessionStorage.getItem("user_id")),
+            'cat': record.category[0],
+            'description': record.description
+        }
+        console.log(JSON.stringify(body))
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+            body: JSON.stringify(body)
+        }).then(res => res.json())
+            .then(response => {
+                console.log(response)
+                // window.location.replace('/user_services');
+            })
+    };
 
     render() {
-        return(
+        return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Content>
                     <div>
                         <Row justify='center' align='middle'>
                             <Form
-                                {...formItemLayout}
                                 name="register"
-                                scrollToFirstError
-                                style={{width: '50%'}}
-                                onFinish={this.submit}
+                                className="login-form"
+                                style={{ width: '40%' }}
+                                onFinish={this.pushdata}
                             >
-                                <Divider style={{fontSize:'100'}}>Complain Form</Divider>
-                                <Form.Item
+                                <Divider style={{ fontSize: '100' }}>Complain Form</Divider>
+
+                                <FormItem
                                     name="category"
                                     label="Category"
                                     rules={[
-                                    { type: 'array', required: true, message: 'Please select Category!' },
+                                        {
+                                            type: "array",
+                                            required: true,
+                                            message: "Please select your Category!",
+                                        },
                                     ]}
                                 >
                                     <Cascader options={category} />
-                                </Form.Item>
+                                </FormItem>
 
                                 <Form.Item
                                     name="description"
                                     label="Description"
                                     rules={[
-                                    {
-                                        type: 'string',
-                                        message: 'The input is not valid E-mail!',
-                                    },
+                                        {
+                                            type: 'string',
+                                            required: true,
+                                            message: 'Provide your description',
+                                        },
                                     ]}
                                 >
-                                    <Input style={{height: '100px'}}/>
+                                    <Input style={{ height: '100px' }}/>
                                 </Form.Item>
-
-                                <Form.Item
-                                    name="image"
-                                    label="Image"
-                                    rules={[
-                                    {
-                                        required: false,
-                                        message: 'Please upload Image',
-                                    },
-                                    ]}
-                                >
-                                    <Upload {...props}>
-                                        <Button icon={<UploadOutlined /> }>Upload</Button>
-                                    </Upload>
-                                </Form.Item>
-
 
                                 <Form.Item {...tailFormItemLayout}
-                                     name= "submit"
+                                    name="submit"
                                 >
-                                    <Button type="primary" htmlType="submit">
-                                    Submit
+                                    <Button type="primary" htmlType='submit'>
+                                        Submit
                                     </Button>
-                                    <Button htmlType="cancel" onClick={this.cancel}>
-                                    Cancel
+                                    <Button onClick={this.cancel}>
+                                        Cancel
+                                    </Button>
+                                    <Button onClick={this.mycomp}>
+                                        View My Complains
                                     </Button>
                                 </Form.Item>
                             </Form>
                         </Row>
                     </div>
                 </Content>
-                
+
             </Layout>
         )
     }

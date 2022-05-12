@@ -17,6 +17,7 @@ import UserMaint from './components/User/UserMaint'
 import AdminMaint from './components/Admin/AdminMaint'
 import UserServices from './components/User/UserServices'
 import UserHousing from './components/User/UserHousing'
+import MyComplains from './components/User/MyComplains'
 import AdminMaintDetail from './components/Admin/AdminMaintDetail';
 
 
@@ -34,8 +35,16 @@ export default class Paths extends Component {
         this.setState({user_id: id})
     }
 
+    authGuard = (Component) => () => {
+        return sessionStorage.getItem("logged_in") ? (
+            <Component {...this}{...this.state}/>
+        ) : (
+            <Redirect to="/login" />
+        );
+    };
+    
     componentDidMount() {
-        sessionStorage.setItem("ip_add", "http://34.229.88.193:8080");
+        sessionStorage.setItem("ip_add", "http://localhost:8081");
     }
 
 
@@ -47,44 +56,34 @@ export default class Paths extends Component {
                     <Route exact path="/">
                         <Redirect to="/login" /> 
                     </Route>
-                    <Route path="/login">
+                    <Route path="/login" render={this.authGuard(Login)}> 
                             <Login />
                         </Route>
                     <div>
                         <Navigation /> 
-                        <Route path="/home">
-                            <Home />
-                        </Route>
-                        <Route path="/admin_services">
-                            <AdminServices />
-                        </Route>
-                        <Route path="/user_services">
-                            <UserServices />
-                        </Route>
-                        <Route path="/admin_userinfo">
-                            <AdminUserinfo />
-                        </Route>
-                        <Route path="/edit_userinfo">
-                            <EditUserinfo />
-                        </Route>
-                        <Route path="/user_comp">
-                            <UserComplains />
-                        </Route>
-                        <Route path="/user_housing">
-                            <UserHousing />
-                        </Route>
-                        <Route path="/admin_complain">
-                            <AdminComplains />
-                        </Route>
-                        <Route path="/user_maint">
-                            <UserMaint/>
-                        </Route>
-                        <Route path="/admin_maint">
-                            <AdminMaint {...this}{...this.state}/>
-                        </Route>
-                        <Route path="/admin_maint_detail">
-                            <AdminMaintDetail {...this}{...this.state}/>
-                        </Route>
+                        <Route path="/home" render={this.authGuard(Home)} />
+
+                        <Route path="/admin_services" render={this.authGuard(AdminServices)} />
+
+                        <Route path="/user_services" render={this.authGuard(UserServices)} />
+
+                        <Route path="/admin_userinfo" render={this.authGuard(AdminUserinfo)} />
+
+                        <Route path="/edit_userinfo" render={this.authGuard(EditUserinfo)} />
+
+                        <Route path="/user_comp" render={this.authGuard(UserComplains)} />
+
+                        <Route path="/user_housing" render={this.authGuard(UserHousing)} />
+
+                        <Route path="/admin_complain" render={this.authGuard(AdminComplains)} />
+
+                        <Route path="/my_complains" render={this.authGuard(MyComplains)} />
+
+                        <Route path="/user_maint" render={this.authGuard(UserMaint)} />
+
+                        <Route path="/admin_maint" render={this.authGuard(AdminMaint)} />
+
+                        <Route path="/admin_maint_detail" render={this.authGuard(AdminMaintDetail)} />
                     </div>
                 </Switch>
                 

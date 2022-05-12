@@ -1,84 +1,119 @@
-import { Col, Row, Table, Button, Input, Tag } from 'antd';
+import { Col, Row, Table, Button, Input, Tag ,Modal} from 'antd';
 import Layout, { Content, Header } from 'antd/lib/layout/layout';
 import React, { Component } from 'react';
+import Column from 'antd/lib/table/Column';
+import Item from 'antd/lib/list/Item';
 
 const { Search } = Input;
-let cols = [
-    {
-        title: 'Sr. No.',
-        dataIndex: 'key',
-    },
-    {
-        title: 'Category',
-        dataIndex: 'category',
-    },
-    {
-        title: 'Date',
-        dataIndex: 'date',
-    },
-    {
-        title: 'Status',
-        dataIndex: 'status',
-    },
-    {
-        title: '',
-        dataIndex: 'details',
-    },
-];
-
-let comp = [
-  {
-    key: '1',
-    category: 'leakage',
-    date: "08/04/2022",
-    status: <Tag color='green' key="pending">{"pendind".toUpperCase()}</Tag>,
-    details: <Button type='primary' onClick={(e) => {this.details(e)}}>details</Button>
-  },
-  {
-    key: '2',
-    category: 'parking issue',
-    date: "01/04/2022",
-    status: <Tag color='green' key="pending">{"pendind".toUpperCase()}</Tag>,
-    details: <Button type='primary' onClick={(e) => {this.details(e)}}>details</Button>
-  },
-  {
-    key: '3',
-    category: 'leakage',
-    date: "08/04/2022",
-    status: <Tag color='green' key="pending">{"pendind".toUpperCase()}</Tag>,
-    details: <Button type='primary' onClick={(e) => {this.details(e)}}>details</Button>
-  },
-];
 
 export default class AdminComplains extends Component {
-  state = {
-    columns: [],
-    complains: [],
-    selected: {},
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      columns: [],
+      complains: [],
+      selected: {},
+      
+    }
+    this.fetchApi = this.fetchApi.bind(this)
+  } 
+
+  
+
+  fetchApi(){
+    let url = `http://localhost:8081/Complaint/GetAllComplaints`;
+    console.log(" hello me")
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":'application/json'
+      },
+    }).then(res => res.json())
+      .then(response => {
+        console.log(response)
+        this.setState({complains: response})
+      })
+  }
 
   componentDidMount = () => {
-    this.setState({complains: comp, columns: cols})
+    let url = `http://localhost:8081/Complaint/GetAllComplaints`;
+
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":'application/json'
+      },
+    }).then(res => res.json())
+      .then(response => {
+        console.log(response)
+        this.setState({complains: response})
+      })
   }
 
-  details = (values, e) => {
-    console.log(e.key())
+  checkForTag = (value) => {
+    let renderTab = null;
+    if(value){
+      renderTab = <Tag color="success" >Resolved</Tag>;
+    } else {
+      renderTab = <Tag color="processing">Pending</Tag>;
+    }
+    return renderTab;
+  };
+   
+  resolve = (r) => {
+    let skey= r.skey;
+    let fno=r.flat_no;
+    let url = `http://localhost:8081/Complaint/updateComplaintStatus/`+skey+'/'+fno;
+    console.log(url)
+
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":'application/json'
+      },
+    }).then(res => res.json())
+      .then(response => {
+        console.log(response)
+      })
+    this.fetchApi();
   }
+
 
   render(){   
     const { columns, complains } = this.state;
 
     return(
-      <Layout>
-        <Content>
-          <h3 style={{padding:'20px',textAlign:'center'}}>User Complaints</h3>
-          <Table 
-            columns={columns}
-            dataSource={complains} 
-            
-        />
-        </Content>
+      <Layout style={{minHeight: '100vh'}}>
+        <Content style={{height: '100%'}}>
+           <h3 style={{padding:'20px',textAlign:'center'}}>User Complaints</h3>
+         <Table style={{paddingLeft:'100px',paddingRight:'100px'}} dataSource={complains} >
+
+                <Column key="id" dataIndex={"flat_no"} title="Flat no" />
+                <Column key ="category" dataIndex={"cat"} title="Category"/>
+                <Column dataIndex={"description"} title="Description"/>
+                <Column dataIndex={"status"} title="Status" render={(r) => {
+                  return (
+                    <div>
+                    {this.checkForTag(r)}
+                    </div>
+                  )
+                }} />
+
+                <Column key="action" title="Action" render={(r) => {
+                  return(
+                    <div>
+                        <Button type='primary' onClick={() => this.resolve(r)  } >Resolve</Button>
+                    </div>
+                  )
+                }}></Column>
+         </Table>
+                </Content>
       </Layout>
+      
+    
     )
   }
 }

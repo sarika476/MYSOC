@@ -24,6 +24,7 @@ function Login() {
     const [password,setPassword]=useState("");
 
     async function validateLogin(){
+        console.log("hello")
         let  item ={id,password};
         const ip = sessionStorage.getItem("ip_add");
         await fetch(`${ip}/user/login`,{
@@ -37,12 +38,15 @@ function Login() {
             if(response.status === 200){
                 console.log("SUCCESS");
                 sessionStorage.setItem("user_id", id);
+                sessionStorage.setItem("logged_in", "true");
             }
             else if(response.status === 404 ){
                 console.log("USER NOT FOUND");
+                sessionStorage.setItem("logged_in", "false");
             }
             else{
-                console.log("INVALID CREDENTIALS!")
+                console.log("INVALID CREDENTIALS!");
+                sessionStorage.setItem("logged_in", "false");
             }
         });
         // result = await result.json();

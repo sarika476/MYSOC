@@ -38,7 +38,6 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Override
     public int regeisterComplaint(Complaint obj,MultipartFile img) throws IOException {
-        obj.setImage(new Binary(BsonBinarySubType.BINARY,img.getBytes()));
         complaintRepo.save(obj);
         return 1;
     }
