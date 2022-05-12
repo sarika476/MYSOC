@@ -1,0 +1,6 @@
+2022-05-12 19:54:06,069 INFO com.example.mysoc.TestMaintaineneceController [main] Starting TestMaintaineneceController using Java 11.0.15 on manthan with PID 41014 (started by manthan in /home/manthan/Desktop/SEM2/SPE/FinalProject/MYSOC/backend)
+2022-05-12 19:54:06,081 INFO com.example.mysoc.TestMaintaineneceController [main] No active profile set, falling back to 1 default profile: "default"
+2022-05-12 19:54:18,014 INFO com.example.mysoc.TestMaintaineneceController [main] Started TestMaintaineneceController in 15.116 seconds (JVM running for 26.306)
+2022-05-12 19:54:18,434 INFO com.example.mysoc.controller.UserController [main] [UserSave]- new user added with user id 5
+2022-05-12 19:54:18,732 INFO com.example.mysoc.controller.UserController [main] [getAllUser]- get list of user is called
+2022-05-12 19:54:18,758 INFO com.example.mysoc.controller.UserController [main] [updateUser]- update user function called by user-5
