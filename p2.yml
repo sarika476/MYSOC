@@ -32,15 +32,9 @@
         owner: ubuntu
         group: ubuntu
         mode: 0777
-<<<<<<< HEAD
+
     - name: Changing permission
       shell: sudo chmod 777 /var/run/docker.sock
         
     - name: Run Docker compose
       shell: ./scriptfile.sh
-=======
-    - name : Run Docker compose
-      ansible.builtin.shell:
-        cmd: sh scriptfile.sh
-
->>>>>>> c124cf0f42eca5e3b0389d334748915342cbf89a
