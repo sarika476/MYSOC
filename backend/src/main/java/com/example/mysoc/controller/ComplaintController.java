@@ -5,6 +5,8 @@ import com.example.mysoc.entity.ComplaintSequencer;
 import com.example.mysoc.entity.MaintainenceDB;
 import com.example.mysoc.entity.Response;
 import com.example.mysoc.repository.ComplaintRepo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -27,7 +29,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 @RequestMapping("/Complaint")
 public class ComplaintController {
     public Response response=new Response();
-
+    private static final Logger logger = LogManager.getLogger(UserController.class);
 //    @Autowired
 //    private ComplaintService complaintService;
 
@@ -55,11 +57,13 @@ public class ComplaintController {
         obj.setSkey(this.generateSequence(Complaint.SEQUENCE_NAME));
         obj.setStatus(false);
         complaintRepo.save(obj);
+        logger.info("[NewComplaint]- user "+obj.getFlat_no()+" registerd a new complaint");
         return ResponseEntity.ok().body(response);
     }
     @GetMapping("/GetAllComplaints")
     public List<Complaint> getALL()
     {
+        logger.info("[getAllComplaint] - list of all complaint");
         return complaintRepo.findAll(Sort.by("date").descending());
     }
 
@@ -71,7 +75,7 @@ public class ComplaintController {
         criteria.add(Criteria.where("status").is(false));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<Complaint> ans=mongoOperations.find(query,Complaint.class);
-
+        logger.info("[PendingCompalaints] - funciton for pending complaint is called");
         return ans;
     }
     @GetMapping("/getComplaintByUser/{uid}")
@@ -82,6 +86,7 @@ public class ComplaintController {
         criteria.add(Criteria.where("flat_no").is(id));
         query.addCriteria(new Criteria().andOperator(criteria.toArray((new Criteria[criteria.size()]))));
         List<Complaint> ans=mongoOperations.find(query,Complaint.class);
+        logger.info("[UserComplaints] - user "+id+" checked his/her previous complaints");
         return ans;
     }
     @PutMapping("/updateComplaintStatus/{skey}/{fno}")
@@ -99,7 +104,7 @@ public class ComplaintController {
             return false;
         }*/
         Complaint c= mongoOperations.findAndModify(query,new Update().set("status",true),Complaint.class);
-
+        logger.info("[updateStatus] - Admin updated complaint of user "+fn);
         return true;
     }
 }
