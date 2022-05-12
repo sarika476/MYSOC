@@ -1,9 +1,9 @@
 pipeline {
     environment {
-        registry1 = "sarika476/frontend"
-        registry2 = "sarika476/backend"
-        registry = "sarika476/final_project"
-        registryCredential = 'docker-login'
+        registry1 = "manthan0112/frontend"
+        registry2 = "manthan0112/backend"
+        registry = "manthan0112/final_project"
+        registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
     agent any
@@ -54,13 +54,20 @@ pipeline {
         }
         
         
-        
         stage('Deploy our image') {
             steps{
 		    withDockerRegistry([ credentialsId: registryCredential, url: "" ]) {sh 'docker push $registry1'}
 		    withDockerRegistry([ credentialsId: registryCredential, url: "" ]) {sh 'docker push $registry2'}
             }
         }
+	    
+	stage('Cleaning up') {
+            steps{
+                sh "docker rmi $registry1"
+		sh "docker rmi $registry2"
+            }
+        }
+        
         
         stage('Ansible Deploy') {
             steps {

@@ -1,17 +1,21 @@
 services:
  react:
-  image: sarika476/frontend
+  image: manthan0112/frontend
   container_name: "react"
   ports:
    - 3000:3000
+  networks:
+   - abc1
   depends_on:
     - spring
     - mongo
  spring:
-  image: sarika476/backend
+  image: manthan0112/backend
   container_name: "spring"
   ports:
    - 8081:8081
+  networks:
+   - abc1
   depends_on: 
    - mongo
  
@@ -20,17 +24,16 @@ services:
   container_name: "mongo"
   ports:
    - 27017:27017
-  volumes_from:
-        - data
-
- data:
-    image: mongo:latest
-    volumes:
-        - /var/lib/mongo
-        - ./setup:/setup
-    command: "true"
-    container_name: "temp"
+  networks:
+   - abc1
+  volumes: 
+   - shared-db:/data/db 
+   - ./setup:/setup
+    
 networks:
- default:
-  external:
-   name: bridge
+   abc1:
+     driver: bridge
+     
+volumes:
+   shared-db:
+    
