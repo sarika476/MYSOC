@@ -10,7 +10,7 @@ services:
     - spring
     - mongo
  spring:
-  image: manthan0112/backend
+  image: manthan0112/backend2
   container_name: "spring"
   ports:
    - 8081:8081

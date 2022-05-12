@@ -59,7 +59,7 @@ export default class AdminComplains extends Component {
   };
 
   componentDidMount = () => {
-    let url = `http://localhost:8081/Complaint/getComplaintByUser/`+sessionStorage.getItem("user_id");
+    let url = sessionStorage.getItem("ip_add")+`/Complaint/getComplaintByUser/`+sessionStorage.getItem("user_id");
     console.log(url);
 
     fetch(url, {

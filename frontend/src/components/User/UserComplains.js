@@ -105,7 +105,7 @@ export default class UserComplains extends Component {
     pushdata = (record, e) => {
         console.log(record);
 
-        let url = `http://localhost:8081/Complaint/Register`;
+        let url = sessionStorage.getItem("ip_add")+`/Complaint/Register`;
 
         let body = {
             'flat_no': parseFloat(sessionStorage.getItem("user_id")),

@@ -1,7 +1,7 @@
 pipeline {
     environment {
         registry1 = "manthan0112/frontend"
-        registry2 = "manthan0112/backend"
+        registry2 = "manthan0112/backend2"
         registry = "manthan0112/final_project"
         registryCredential = 'dockerhub_id'
         dockerImage = ''

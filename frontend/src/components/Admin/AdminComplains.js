@@ -21,7 +21,7 @@ export default class AdminComplains extends Component {
   
 
   fetchApi(){
-    let url = `http://localhost:8081/Complaint/GetAllComplaints`;
+    let url = sessionStorage.getItem("ip_add")+`/Complaint/GetAllComplaints`;
     console.log(" hello me")
     fetch(url, {
       method: "GET",
@@ -37,7 +37,7 @@ export default class AdminComplains extends Component {
   }
 
   componentDidMount = () => {
-    let url = `http://localhost:8081/Complaint/GetAllComplaints`;
+    let url = sessionStorage.getItem("ip_add")+`/Complaint/GetAllComplaints`;
 
     fetch(url, {
       method: "GET",
@@ -65,7 +65,7 @@ export default class AdminComplains extends Component {
   resolve = (r) => {
     let skey= r.skey;
     let fno=r.flat_no;
-    let url = `http://localhost:8081/Complaint/updateComplaintStatus/`+skey+'/'+fno;
+    let url = sessionStorage.getItem("ip_add")+`/updateComplaintStatus/`+skey+'/'+fno;
     console.log(url)
 
     fetch(url, {
