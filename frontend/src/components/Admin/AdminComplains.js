@@ -77,8 +77,9 @@ export default class AdminComplains extends Component {
     }).then(res => res.json())
       .then(response => {
         console.log(response)
+      this.fetchApi();
       })
-    this.fetchApi();
+    
   }
 
 
