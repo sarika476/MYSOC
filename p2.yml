@@ -35,6 +35,10 @@
         mode: 0777
     - name: Changing permission
       shell: sudo chmod 777 /var/run/docker.sock
-        
+      
+    - name: removing previously created images
+      run: docker rm -f $(docker ps -aq)
+      run: docker rmi -f $(docker images -aq)
+      
     - name: Run Docker compose
       shell: ./scriptfile.sh
