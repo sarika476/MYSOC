@@ -89,6 +89,7 @@ public class ComplaintController {
         logger.info("[UserComplaints] - user "+id+" checked his/her previous complaints");
         return ans;
     }
+    @CrossOrigin
     @PutMapping("/updateComplaintStatus/{skey}/{fno}")
     public boolean updateStatus(@PathVariable("skey")long sk, @PathVariable("fno")Long fn)
     {
