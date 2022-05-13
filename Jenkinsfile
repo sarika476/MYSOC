@@ -64,6 +64,8 @@ pipeline {
 	    
 	stage('Cleaning up') {
             steps{
+		sh "docker rmi openjdk"
+		sh "docker rmi node"
                 sh "docker rmi $registry1"
 		sh "docker rmi $registry2"
             }
