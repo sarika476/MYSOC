@@ -1,6 +1,6 @@
 services:
  react:
-  image: manthan0112/frontend
+  image: monitthakkar/frontend
   container_name: "react"
   ports:
    - 3000:3000
@@ -10,7 +10,7 @@ services:
     - spring
     - mongo
  spring:
-  image: manthan0112/backend2
+  image: monitthakkar/backend2
   container_name: "spring"
   ports:
    - 8081:8081
