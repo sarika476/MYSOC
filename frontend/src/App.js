@@ -44,7 +44,7 @@ export default class Paths extends Component {
     };
     
     componentDidMount() {
-        sessionStorage.setItem("ip_add", "http://3.80.50.98:8081");
+        sessionStorage.setItem("ip_add", "http://3.231.10.227:8081");
     }
 
 
