@@ -8,16 +8,10 @@ export class Navigation extends Component {
     super();
     this.state = {path : '/admin_services'}
     this.sample=this.sample.bind(this);
+    this.logout = this.logout.bind(this);
     
   }
   async sample(){
-    // const status=JSON.parse(localStorage.getItem('user-info'));
-    // console.log(status['AdminFlag']);
-    // if( status['AdminFlag']){
-    //   this.setState({path: '/admin_services'});
-    // }else{
-    //   this.setState({path: '/user_services'});
-    // }
     
     var id = sessionStorage.getItem("user_id")
     var ip=sessionStorage.getItem("ip_add")
@@ -33,6 +27,11 @@ export class Navigation extends Component {
     
       
   }   
+
+  logout(){
+    sessionStorage.setItem("logged_in", "false");
+    window.location.replace('/login');
+  }
   render() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
@@ -47,7 +46,7 @@ export class Navigation extends Component {
             <Nav.Link onClick={this.sample}>Services</Nav.Link>
             </Nav>
             <Nav>
-            <Nav.Link href="/login">Logout</Nav.Link>
+            <Nav.Link onClick={this.logout}>Logout</Nav.Link>
             </Nav>
         </Navbar.Collapse>
         {/* </Container> */}
