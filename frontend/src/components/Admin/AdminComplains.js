@@ -69,6 +69,7 @@ export default class AdminComplains extends Component {
     console.log(url)
 
     fetch(url, {
+      mode: 'cors', //this is new line for cross origin
       method: "PUT",
       headers: {
         "Content-Type":"application/json",
