@@ -21,15 +21,7 @@ pipeline {
 		}
             }
         }
-//          stage('test frontend'){
-//              steps{
-//              	dir('frontend'){
-//                  	sh 'npm test'
-//              	}
-//              }
-		 
-            
-//        }
+
         stage('test backend') {
             steps {
             	dir('backend'){
