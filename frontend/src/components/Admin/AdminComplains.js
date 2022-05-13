@@ -21,7 +21,7 @@ export default class AdminComplains extends Component {
   
 
   fetchApi(){
-    let url = sessionStorage.getItem("ip_add")+`/Complaint/GetAllComplaints`;
+    let url = `http://3.231.10.227:8081/Complaint/GetAllComplaints`;
     console.log(" hello me")
     fetch(url, {
       method: "GET",
@@ -37,7 +37,7 @@ export default class AdminComplains extends Component {
   }
 
   componentDidMount = () => {
-    let url = sessionStorage.getItem("ip_add")+`/Complaint/GetAllComplaints`;
+    let url = `http://3.231.10.227:8081/Complaint/GetAllComplaints`;
 
     fetch(url, {
       method: "GET",
@@ -65,11 +65,10 @@ export default class AdminComplains extends Component {
   resolve = (r) => {
     let skey= r.skey;
     let fno=r.flat_no;
-    let url = sessionStorage.getItem("ip_add")+`/updateComplaintStatus/`+skey+'/'+fno;
+    let url = `http://3.231.10.227:8081/Complaint/updateComplaintStatus/`+skey+'/'+fno;
     console.log(url)
 
     fetch(url, {
-      mode: 'no-cors', //this is new line for cross origin
       method: "PUT",
       headers: {
         "Content-Type":"application/json",
@@ -78,7 +77,7 @@ export default class AdminComplains extends Component {
     }).then(res => res.json())
       .then(response => {
         console.log(response)
-      this.fetchApi();
+        this.fetchApi();
       })
     
   }
